@@ -22,8 +22,16 @@
 #include <stdio.h>
 #include <avr/io.h>
 #include <avr/pgmspace.h>
-
 #include <util/delay.h>
+
+#include "config.h"
+#include <avr/io.h>
+#include <util/delay.h>
+#include <avr/interrupt.h>
+#include "Timer1.h"
+#define DELAY1 1600
+#define DELAY2 8000
+#define DELAY3 16000
 
 #include "lcd.h"
 #include "mfrc522.h"
@@ -37,30 +45,67 @@
 
 FILE lcd_str = FDEV_SETUP_STREAM(lcd_putchar, NULL, _FDEV_SETUP_WRITE);
 static void init(){
+	/* initialize peripherals */
 	lcd_init();
 	spi_init();
 	mfrc522_init();
-	
+	pwm_init();
+	/* Set up pins the PWM Servo Motor */
+	DDRB &= 0xFE;
+	DDRB &= 0xFE;
+	PORTC = (1 << PORTC0);
+	PORTB = (1 << PORTB0);
 }
 int main (void) {
 	uint8_t byte;
-	
-	
 	init();
-	fprintf(&lcd_str, "RFID Reader");
-	_delay_ms(1000);
-	fprintf(&lcd_str, "");
-	byte = mfrc522_read(VersionReg);
-	if(byte == 0x92){
-		fprintf(&lcd_str, "MIFARE RC522");
-		fprintf(&lcd_str, "Detected");
-	} else if(byte == 0x91 || byte == 0x90){
-		fprintf(&lcd_str, "MIFARE RC522");
-		fprintf(&lcd_str, "Detected");
-	} else {
-		fprintf(&lcd_str, "No reader found");
+	sei();
+	servo_set(150,180);
+	int16_t count = 0;
+	int16_t delay = 0;
 
+	while(1)
+	{
+		if(count == 0){
+			//Welcome Display
+			count++;
+			_delay_ms(1000);
+		}
+		if((PINC & (1 << PINC0))== 0){
+			if(count == 1){
+				delay = 1600;
+				_delay_ms(1000);
+				//1 Gram 
+			}else if(count == 2){
+				//5 Grams
+				delay = 8000;;
+				_delay_ms(1000);
+			}else if(count == 3){
+				//10 grams
+				delay = 16000;
+				_delay_ms(1000);
+				count = 0;
+			}
+			count++;
+		}
+		if((PINB & (1 << PINB0)) == 0){
+			if((count == 0) && (delay == 0)){
+				;
+			}else{
+				_delay_ms(1000);
+				servo_set(105,150);
+				if(delay == 1600){
+					_delay_ms(DELAY1);
+				}else if(delay == 8000){
+					_delay_ms(DELAY2);
+				}else if(delay == 16000){
+					_delay_ms(DELAY3);
+				}
+				servo_set(150,180);
+			}
+			
+		}
 	}
-	while(1);
+
 	return 0;
 }
