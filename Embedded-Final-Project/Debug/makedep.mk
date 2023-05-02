@@ -12,3 +12,5 @@ src\lib\mfrc522.c
 
 src\lib\spi.c
 
+src\lib\uart.c
+

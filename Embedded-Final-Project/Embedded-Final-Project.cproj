@@ -125,6 +125,9 @@
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\include\config.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\include\defines.h">
       <SubType>compile</SubType>
     </Compile>
@@ -152,6 +155,9 @@
     <Compile Include="src\include\spi_config.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\include\uart.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\include\utils.h">
       <SubType>compile</SubType>
     </Compile>
@@ -165,6 +171,9 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\lib\spi.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\lib\uart.c">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>
