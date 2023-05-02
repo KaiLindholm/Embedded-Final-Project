@@ -38,8 +38,7 @@ SUBDIRS :=
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
 ../main.c \
-../Timer1.c \
-../uart.c
+../Timer1.c
 
 
 PREPROCESSING_SRCS += 
@@ -50,23 +49,19 @@ ASM_SRCS +=
 
 OBJS +=  \
 main.o \
-Timer1.o \
-uart.o
+Timer1.o
 
 OBJS_AS_ARGS +=  \
 main.o \
-Timer1.o \
-uart.o
+Timer1.o
 
 C_DEPS +=  \
 main.d \
-Timer1.d \
-uart.d
+Timer1.d
 
 C_DEPS_AS_ARGS +=  \
 main.d \
-Timer1.d \
-uart.d
+Timer1.d
 
 OUTPUT_FILE_PATH +=Final\ Project.elf
 
@@ -90,13 +85,6 @@ LINKER_SCRIPT_DEP+=
 	
 
 ./Timer1.o: .././Timer1.c
-	@echo Building file: $<
-	@echo Invoking: XC8 C Compiler : 2.36
-	$(QUOTE)C:\Program Files\Microchip\xc8\v2.36\bin\xc8-cc.exe$(QUOTE)  -mcpu=ATmega328P  -mdfp="C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\xc8"  -c -x c -funsigned-char -funsigned-bitfields -mext=cci -D__ATmega328P__ -DDEBUG  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
-	@echo Finished building: $<
-	
-
-./uart.o: .././uart.c
 	@echo Building file: $<
 	@echo Invoking: XC8 C Compiler : 2.36
 	$(QUOTE)C:\Program Files\Microchip\xc8\v2.36\bin\xc8-cc.exe$(QUOTE)  -mcpu=ATmega328P  -mdfp="C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\xc8"  -c -x c -funsigned-char -funsigned-bitfields -mext=cci -D__ATmega328P__ -DDEBUG  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 

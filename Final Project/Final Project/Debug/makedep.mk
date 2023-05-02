@@ -6,5 +6,3 @@ main.c
 
 Timer1.c
 
-uart.c
-
