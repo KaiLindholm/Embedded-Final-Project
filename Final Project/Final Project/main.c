@@ -40,7 +40,6 @@ int main(void)
 		if((PINC & (1 << PINC0))== 0){
 			if(count == 1){
 				delay = 1600;
-				servo_set(0,180);
 				_delay_ms(1000);
 				//1 Gram 
 			}else if(count == 2){
@@ -60,10 +59,7 @@ int main(void)
 				;
 			}else{
 				_delay_ms(1000);
-				int16_t i = 0;
-				for(i =124; i > 105; i--){
-					servo_set(i,150);
-				}
+				servo_set(105,150);
 				if(delay == 1600){
 					_delay_ms(DELAY1);
 				}else if(delay == 8000){
