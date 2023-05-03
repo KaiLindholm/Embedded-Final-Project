@@ -2,14 +2,9 @@
  * ---------------------------------------------------+ 
  * @desc        Main file
  * ---------------------------------------------------+ 
- * @copyright   Copyright (C) 2020 Marian Hrinko.
- * @author      Marian Hrinko
- * @email       mato.hrinko@gmail.com
- * @datum       10.11.2020
- * @update      15.04.2021
+ * @author      Kai Lindholm & James Ostrowski
  * @file        main.c
  * @version     1.0
- * @tested      AVR Atmega16a
  * ---------------------------------------------------+
  */
 
@@ -29,9 +24,9 @@
 #include <util/delay.h>
 #include <avr/interrupt.h>
 #include "Timer1.h"
-#define DELAY1 1600
-#define DELAY2 8000
-#define DELAY3 16000
+#define DELAY1 1300
+#define DELAY2 6500
+#define DELAY3 14400
 
 #include "lcd.h"
 #include "mfrc522.h"
@@ -45,24 +40,11 @@
 #include "uart.h"
 #include <string.h>
 
-/**
- * @desc    Main function
- *
- * @param   void
- * @return  int
- */
+
 uint8_t  cardTag[] = {0xAF, 0x51, 0xDA, 0x02};
 uint8_t keyTag[] = {0x40, 0xF8, 0x8C, 0x1E};
 	
 uint8_t Uids[2][4];
-
-
-
-typedef struct {
-	uint8_t		size;			// Number of bytes in the UID. 4, 7 or 10.
-	uint8_t		uidByte[10];
-	uint8_t		sak;			// The SAK (Select acknowledge) byte returned from the PICC after successful selection.
-} Uid;
 
 void printByte(uint8_t number);
 void selfTest();
@@ -70,7 +52,7 @@ void sense_card();
 uint8_t read_card();
 void build_uid(uint8_t* uid);
 uint8_t check_if_uid_in_memory(uint8_t * scannedUid);\
-void dispenser()
+void dispenser();
 FILE lcd_str = FDEV_SETUP_STREAM(lcd_putchar, NULL, _FDEV_SETUP_WRITE);
 
 void init(){
@@ -166,40 +148,52 @@ int main (void) {
 	init();
 	dispenser();
 }
- 
+void goToSecondLine(){
+	hd44780_wait_ready(true);
+	hd44780_outcmd(HD44780_DDADDR(0x40));
+}
 void dispenser(){
 	int16_t count = 0;
 	int16_t delay = 0;
-	if(count == 0){
-		fprintf(&lcd_str, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaBaaaaaaaaaaaaaaaaaaaaaaaaa");
-
-		count++;
-	}
 	
+	fprintf(&lcd_str, "Scan your card.");
 	while(!read_card());
 	
-	_delay_ms(100);
-	fprintf(&lcd_str, "your card.");
-	fprintf(&lcd_str, "\n");
-	fprintf(&lcd_str, "Use the top button.");
+	count++;
+	_delay_ms(1250);
+	fprintf(&lcd_str, "\n\n\n");
+	fprintf(&lcd_str, "\n\n\n");
+				
+	fprintf(&lcd_str, "Use the top PB.");
+	goToSecondLine();
+	fprintf(&lcd_str, "to cycle amounts");
 	
 	while (1) {
 		if((PINC & (1 << PINC0))== 0){
 			if(count == 1){
 				delay = 1600;
-				_delay_ms(1000);
 				fprintf(&lcd_str, "\n");
-				fprintf(&lcd_str, "Creatine: 1g");
-				} else if(count == 2){
 				fprintf(&lcd_str, "\n");
-				fprintf(&lcd_str, "Creatine: 5g");
+				fprintf(&lcd_str, "Pour 1g Creatine");
+				goToSecondLine();
+				fprintf(&lcd_str, "Press 2nd button");
+				_delay_ms(200);
+			} else if(count == 2){
+				fprintf(&lcd_str, "\n");
+				fprintf(&lcd_str, "\n");
+				fprintf(&lcd_str, "Pour 5g Creatine");
+				goToSecondLine();
+				fprintf(&lcd_str, "Press 2nd button");
 				delay = 8000;
-				_delay_ms(1000);
+				_delay_ms(200);
 				}else if(count == 3){
 				fprintf(&lcd_str, "\n");
-				fprintf(&lcd_str, "Creatine: 10g");
+				fprintf(&lcd_str, "\n");
+				fprintf(&lcd_str, "Pour 10g Creatine");
+				goToSecondLine();
+				fprintf(&lcd_str, "Press 2nd button");
 				delay = 16000;
-				_delay_ms(1000);
+				_delay_ms(200);
 				count = 0;
 			}
 			
@@ -221,6 +215,8 @@ void dispenser(){
 				}
 				
 				servo_set(150,180);
+				fprintf(&lcd_str, "\n\n\n");
+				fprintf(&lcd_str, "\n\n\n");
 				dispenser();
 			}
 		}
@@ -242,8 +238,11 @@ uint8_t read_card(){
 			byte = mfrc522_get_card_serial(str);
 			if(byte == CARD_FOUND) {
 				if(check_if_uid_in_memory(str)){
+					goToSecondLine();
+					fprintf(&lcd_str, "\n\nAccess Granted");
 					return 1; 
 				} else {
+					fprintf(&lcd_str, "\n\nAccess Denied");
 					return 0; 
 				}
 			} else {

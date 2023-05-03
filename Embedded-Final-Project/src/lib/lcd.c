@@ -56,11 +56,10 @@ void lcd_init(void) {
  * Send character c to the LCD display.  After a '\n' has been seen,
  * the next character will first clear the display.
  */
-int lcd_putchar(char c, FILE *unused){
-  static bool nl_seen;
 
-  if (nl_seen && c != '\n')
-    {
+int lcd_putchar(char c, FILE *unused) {
+	static uint8_t nl_seen = 0;
+	if (nl_seen >= 2 && c != '\n') {
       /*
        * First character after newline, clear display and home cursor.
        */
@@ -71,17 +70,18 @@ int lcd_putchar(char c, FILE *unused){
       hd44780_wait_ready(true);
       hd44780_outcmd(HD44780_DDADDR(0));
 
-      nl_seen = false;
+      nl_seen = 0;
     }
-  if (c == '\n')
-    {
-      nl_seen = true;
-    }
-  else
-    {
+
+	if (c == '\n') {
+      ++nl_seen;
+      if (nl_seen == 1) {
+		hd44780_wait_ready(true);
+		hd44780_outcmd(HD44780_DDADDR(0x40));
+	  }
+    } else {
       hd44780_wait_ready(false);
       hd44780_outdata(c);
     }
-
-  return 0;
+    return 0;
 }
