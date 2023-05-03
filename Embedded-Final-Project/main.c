@@ -22,8 +22,16 @@
 #include <stdio.h>
 #include <avr/io.h>
 #include <avr/pgmspace.h>
-
 #include <util/delay.h>
+
+#include "config.h"
+#include <avr/io.h>
+#include <util/delay.h>
+#include <avr/interrupt.h>
+#include "Timer1.h"
+#define DELAY1 1600
+#define DELAY2 8000
+#define DELAY3 16000
 
 #include "lcd.h"
 #include "mfrc522.h"
@@ -34,6 +42,8 @@
 #include <spi.h>
 #include <mfrc522.h>
 #include "uart.h"
+#include <string.h>
+
 /**
  * @desc    Main function
  *
@@ -58,34 +68,28 @@ void selfTest();
 void sense_card();
 void  read_card();
 void build_uid(uint8_t* uid);
-#include <string.h>
 uint8_t check_if_uid_in_memory(uint8_t * scannedUid);
 FILE lcd_str = FDEV_SETUP_STREAM(lcd_putchar, NULL, _FDEV_SETUP_WRITE);
-static void init(){
+
+void init(){
+	/* initialize peripherals */
 	lcd_init();
 	spi_init();
 	mfrc522_init();
+	pwm_init();
+	
+	/* Set up pins the PWM Servo Motor */
+	DDRB &= 0xFE;
+	DDRB &= 0xFE;
+	PORTC = (1 << PORTC0);
+	PORTB = (1 << PORTB0);
 	uart_init(19200);
 	_delay_ms(500);
+	
 	// load stored UIDs from memory. 
 	memcpy(Uids[0], cardTag, sizeof(cardTag));
 	memcpy(Uids[1], keyTag, sizeof(keyTag));
 }
-
-int main()
-{
-	_delay_ms(50);
-	init();
-	sei();
-	
-	uart_send_string("RFID Reader\n");
-
-	//selfTest();
-	
-	read_card();
-	while(1);
-}
-
 void printByte(uint8_t byte) {
 	char hex[3];
 
@@ -114,7 +118,7 @@ void selfTest() {
 	}
 	
 	mfrc522_write(CommandReg,Mem_CMD);
-	//enable the selftest by writing 0x09 to the autotestreg
+	//enable the self test by writing 0x09 to the auto testreg
 	mfrc522_write(AutoTestReg, 0x09);
 	//write 0x00 to the FIFO buffer
 	mfrc522_write(FIFODataReg, 0x00);
@@ -149,7 +153,58 @@ void sense_card(){
 		printByte(byte);
 		uart_send_byte('\n');
 		_delay_ms(1000);
+	}
+}
+int main (void) {
+	init();
+	sei();
 
+	read_card();
+	servo_set(150,180);
+	int16_t count = 0;
+	int16_t delay = 0;
+	if(count == 0){
+		fprintf(&lcd_str, "Please scan your card.");
+		count++;
+		_delay_ms(1000);
+	}
+	if((PINC & (1 << PINC0))== 0){
+		if(count == 1){
+			delay = 1600;
+			_delay_ms(1000);
+			fprintf(&lcd_str, "\n");
+			fprintf(&lcd_str, "Selection: Dispense 1 gram of Creatine.");
+			}else if(count == 2){
+				fprintf(&lcd_str, "\n");
+
+				fprintf(&lcd_str, "Selection: Dispense 5 gram of Creatine.");
+				delay = 8000;
+				_delay_ms(1000);
+			}else if(count == 3){
+				fprintf(&lcd_str, "\n");
+				fprintf(&lcd_str, "Selection: Dispense 10 gram of Creatine.");
+				delay = 16000;
+				_delay_ms(1000);
+				count = 0;
+		}
+		
+		count++;
+	}
+	
+	if( (PINB & (1 << PINB0)) == 0 ) {
+		if((count != 0) && (delay != 0)){
+			_delay_ms(1000);
+			servo_set(105,150);
+			if(delay == 1600) {
+				_delay_ms(DELAY1);
+			} else if(delay == 8000){
+				_delay_ms(DELAY2);
+			} else if(delay == 16000){
+				_delay_ms(DELAY3);
+			}
+			
+			servo_set(150,180);
+		}
 	}
 }
 
@@ -182,15 +237,16 @@ void read_card(){
 }
 
 void build_uid(uint8_t* uid){
-	for(uint8_t byte = 0; byte < 4; ++byte)
-	{
+	for(uint8_t byte = 0; byte < 4; ++byte) {
 		printByte(uid[byte]);
 		uart_send_byte(' ');
 	}
 	uart_send_byte('\n');
 }
 
-uint8_t check_if_uid_in_memory(uint8_t * scannedUid) {
+uint8_t check_if_uid_in_memory(uint8_t * scannedUid) 
+{
+	
 	for(int i = 0; i < sizeof(Uids); ++i){
 		uint8_t * uid = Uids[i];
 		if(memcmp(scannedUid, uid, 4) == 0){
@@ -198,5 +254,5 @@ uint8_t check_if_uid_in_memory(uint8_t * scannedUid) {
 		}
 	}
 	return 0; 
-
 }
+
