@@ -42,15 +42,24 @@
  */
 uint8_t  cardTag[] = {0xAF, 0x51, 0xDA, 0x02};
 uint8_t keyTag[] = {0x40, 0xF8, 0x8C, 0x1E};
+	
+uint8_t Uids[2][4];
+
+
+
 typedef struct {
 	uint8_t		size;			// Number of bytes in the UID. 4, 7 or 10.
 	uint8_t		uidByte[10];
 	uint8_t		sak;			// The SAK (Select acknowledge) byte returned from the PICC after successful selection.
 } Uid;
+
 void printByte(uint8_t number);
 void selfTest();
 void sense_card();
 void  read_card();
+void build_uid(uint8_t* uid);
+#include <string.h>
+uint8_t check_if_uid_in_memory(uint8_t * scannedUid);
 FILE lcd_str = FDEV_SETUP_STREAM(lcd_putchar, NULL, _FDEV_SETUP_WRITE);
 static void init(){
 	lcd_init();
@@ -58,6 +67,9 @@ static void init(){
 	mfrc522_init();
 	uart_init(19200);
 	_delay_ms(500);
+	// load stored UIDs from memory. 
+	memcpy(Uids[0], cardTag, sizeof(cardTag));
+	memcpy(Uids[1], keyTag, sizeof(keyTag));
 }
 
 int main()
@@ -131,9 +143,7 @@ void sense_card(){
 	mfrc522_write(ComIEnReg,byte | 0x20);
 	byte = mfrc522_read(DivIEnReg);
 	mfrc522_write(DivIEnReg,byte | 0x80);
-	
-	_delay_ms(1500);
-	uint8_t str[MAX_LEN];
+		uint8_t str[MAX_LEN];
 	while(1){
 		byte = mfrc522_request(PICC_REQALL, str);
 		printByte(byte);
@@ -152,29 +162,41 @@ void read_card(){
 	byte = mfrc522_read(DivIEnReg);
 	mfrc522_write(DivIEnReg,byte|0x80);
 	
-	_delay_ms(1500);
 	while(1){
 		byte = mfrc522_request(PICC_REQALL, str);
-		
-		if(byte == CARD_FOUND)
-		{
+		if(byte == CARD_FOUND) {
 			byte = mfrc522_get_card_serial(str);
-			if(byte == CARD_FOUND)
-			{
-				for(byte=0;byte<8;byte++)
-				{
-					printByte(str[byte]);
-					uart_send_byte(' ');
+			if(byte == CARD_FOUND) {
+				if(check_if_uid_in_memory(str)){
+					uart_send_string("Access Granted");
+				} else {
+					uart_send_string("Access Denied");
 				}
-				uart_send_byte('\n');
-				_delay_ms(2500);
-			}
-			else
-			{
+			} else {
 				uart_send_string("error");
 			}
 		}
 		
 		_delay_ms(1000);
 	}
+}
+
+void build_uid(uint8_t* uid){
+	for(uint8_t byte = 0; byte < 4; ++byte)
+	{
+		printByte(uid[byte]);
+		uart_send_byte(' ');
+	}
+	uart_send_byte('\n');
+}
+
+uint8_t check_if_uid_in_memory(uint8_t * scannedUid) {
+	for(int i = 0; i < sizeof(Uids); ++i){
+		uint8_t * uid = Uids[i];
+		if(memcmp(scannedUid, uid, 4) == 0){
+			return 1;
+		}
+	}
+	return 0; 
+
 }
