@@ -1,0 +1,1728 @@
+
+Embedded-Final-Project.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         0000005a  00800100  0000090a  0000099e  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         0000090a  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .bss          0000008f  0080015a  0080015a  000009f8  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  000009f8  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00000a28  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 000001e8  00000000  00000000  00000a68  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   00002240  00000000  00000000  00000c50  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 00001053  00000000  00000000  00002e90  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   0000118a  00000000  00000000  00003ee3  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  000004e0  00000000  00000000  00005070  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    00000811  00000000  00000000  00005550  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    000012cd  00000000  00000000  00005d61  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 000001a8  00000000  00000000  0000702e  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 34 00 	jmp	0x68	; 0x68 <__ctors_end>
+   4:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+   8:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+   c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  10:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  14:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  18:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  1c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  20:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  24:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  28:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  2c:	0c 94 8f 03 	jmp	0x71e	; 0x71e <__vector_11>
+  30:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  34:	0c 94 83 03 	jmp	0x706	; 0x706 <__vector_13>
+  38:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  3c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  40:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  44:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  48:	0c 94 b2 03 	jmp	0x764	; 0x764 <__vector_18>
+  4c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  50:	0c 94 e8 03 	jmp	0x7d0	; 0x7d0 <__vector_20>
+  54:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  58:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  5c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  60:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  64:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+
+00000068 <__ctors_end>:
+  68:	11 24       	eor	r1, r1
+  6a:	1f be       	out	0x3f, r1	; 63
+  6c:	cf ef       	ldi	r28, 0xFF	; 255
+  6e:	d8 e0       	ldi	r29, 0x08	; 8
+  70:	de bf       	out	0x3e, r29	; 62
+  72:	cd bf       	out	0x3d, r28	; 61
+
+00000074 <__do_copy_data>:
+  74:	11 e0       	ldi	r17, 0x01	; 1
+  76:	a0 e0       	ldi	r26, 0x00	; 0
+  78:	b1 e0       	ldi	r27, 0x01	; 1
+  7a:	ea e0       	ldi	r30, 0x0A	; 10
+  7c:	f9 e0       	ldi	r31, 0x09	; 9
+  7e:	02 c0       	rjmp	.+4      	; 0x84 <__do_copy_data+0x10>
+  80:	05 90       	lpm	r0, Z+
+  82:	0d 92       	st	X+, r0
+  84:	aa 35       	cpi	r26, 0x5A	; 90
+  86:	b1 07       	cpc	r27, r17
+  88:	d9 f7       	brne	.-10     	; 0x80 <__do_copy_data+0xc>
+
+0000008a <__do_clear_bss>:
+  8a:	21 e0       	ldi	r18, 0x01	; 1
+  8c:	aa e5       	ldi	r26, 0x5A	; 90
+  8e:	b1 e0       	ldi	r27, 0x01	; 1
+  90:	01 c0       	rjmp	.+2      	; 0x94 <.do_clear_bss_start>
+
+00000092 <.do_clear_bss_loop>:
+  92:	1d 92       	st	X+, r1
+
+00000094 <.do_clear_bss_start>:
+  94:	a9 3e       	cpi	r26, 0xE9	; 233
+  96:	b2 07       	cpc	r27, r18
+  98:	e1 f7       	brne	.-8      	; 0x92 <.do_clear_bss_loop>
+  9a:	0e 94 f6 00 	call	0x1ec	; 0x1ec <main>
+  9e:	0c 94 83 04 	jmp	0x906	; 0x906 <_exit>
+
+000000a2 <__bad_interrupt>:
+  a2:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+000000a6 <init>:
+	for(uint8_t byte = 0; byte < 4; ++byte) {
+		printByte(uid[byte]);
+		uart_send_byte(' ');
+	}
+	uart_send_byte('\n');
+}
+  a6:	0e 94 9f 01 	call	0x33e	; 0x33e <lcd_init>
+  aa:	0e 94 76 03 	call	0x6ec	; 0x6ec <spi_init>
+  ae:	0e 94 e0 01 	call	0x3c0	; 0x3c0 <mfrc522_init>
+  b2:	0e 94 99 03 	call	0x732	; 0x732 <pwm_init>
+  b6:	84 b1       	in	r24, 0x04	; 4
+  b8:	8e 7f       	andi	r24, 0xFE	; 254
+  ba:	84 b9       	out	0x04, r24	; 4
+  bc:	84 b1       	in	r24, 0x04	; 4
+  be:	8e 7f       	andi	r24, 0xFE	; 254
+  c0:	84 b9       	out	0x04, r24	; 4
+  c2:	81 e0       	ldi	r24, 0x01	; 1
+  c4:	88 b9       	out	0x08, r24	; 8
+  c6:	85 b9       	out	0x05, r24	; 5
+  c8:	60 e0       	ldi	r22, 0x00	; 0
+  ca:	7b e4       	ldi	r23, 0x4B	; 75
+  cc:	80 e0       	ldi	r24, 0x00	; 0
+  ce:	90 e0       	ldi	r25, 0x00	; 0
+  d0:	0e 94 f7 03 	call	0x7ee	; 0x7ee <uart_init>
+  d4:	2f ef       	ldi	r18, 0xFF	; 255
+  d6:	89 e6       	ldi	r24, 0x69	; 105
+  d8:	98 e1       	ldi	r25, 0x18	; 24
+  da:	21 50       	subi	r18, 0x01	; 1
+  dc:	80 40       	sbci	r24, 0x00	; 0
+  de:	90 40       	sbci	r25, 0x00	; 0
+  e0:	e1 f7       	brne	.-8      	; 0xda <init+0x34>
+  e2:	00 c0       	rjmp	.+0      	; 0xe4 <init+0x3e>
+  e4:	00 00       	nop
+  e6:	eb e5       	ldi	r30, 0x5B	; 91
+  e8:	f1 e0       	ldi	r31, 0x01	; 1
+  ea:	80 91 04 01 	lds	r24, 0x0104	; 0x800104 <cardTag>
+  ee:	90 91 05 01 	lds	r25, 0x0105	; 0x800105 <cardTag+0x1>
+  f2:	a0 91 06 01 	lds	r26, 0x0106	; 0x800106 <cardTag+0x2>
+  f6:	b0 91 07 01 	lds	r27, 0x0107	; 0x800107 <cardTag+0x3>
+  fa:	80 83       	st	Z, r24
+  fc:	91 83       	std	Z+1, r25	; 0x01
+  fe:	a2 83       	std	Z+2, r26	; 0x02
+ 100:	b3 83       	std	Z+3, r27	; 0x03
+ 102:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <__DATA_REGION_ORIGIN__>
+ 106:	90 91 01 01 	lds	r25, 0x0101	; 0x800101 <__DATA_REGION_ORIGIN__+0x1>
+ 10a:	a0 91 02 01 	lds	r26, 0x0102	; 0x800102 <__DATA_REGION_ORIGIN__+0x2>
+ 10e:	b0 91 03 01 	lds	r27, 0x0103	; 0x800103 <__DATA_REGION_ORIGIN__+0x3>
+ 112:	84 83       	std	Z+4, r24	; 0x04
+ 114:	95 83       	std	Z+5, r25	; 0x05
+ 116:	a6 83       	std	Z+6, r26	; 0x06
+ 118:	b7 83       	std	Z+7, r27	; 0x07
+ 11a:	08 95       	ret
+
+0000011c <check_if_uid_in_memory>:
+
+uint8_t check_if_uid_in_memory(uint8_t * scannedUid) 
+{
+ 11c:	0f 93       	push	r16
+ 11e:	1f 93       	push	r17
+ 120:	cf 93       	push	r28
+ 122:	df 93       	push	r29
+ 124:	8c 01       	movw	r16, r24
+	
+	for(int i = 0; i < sizeof(Uids); ++i){
+ 126:	c0 e0       	ldi	r28, 0x00	; 0
+ 128:	d0 e0       	ldi	r29, 0x00	; 0
+ 12a:	0f c0       	rjmp	.+30     	; 0x14a <check_if_uid_in_memory+0x2e>
+		uint8_t * uid = Uids[i];
+ 12c:	be 01       	movw	r22, r28
+ 12e:	66 0f       	add	r22, r22
+ 130:	77 1f       	adc	r23, r23
+ 132:	66 0f       	add	r22, r22
+ 134:	77 1f       	adc	r23, r23
+ 136:	65 5a       	subi	r22, 0xA5	; 165
+ 138:	7e 4f       	sbci	r23, 0xFE	; 254
+		if(memcmp(scannedUid, uid, 4) == 0){
+ 13a:	44 e0       	ldi	r20, 0x04	; 4
+ 13c:	50 e0       	ldi	r21, 0x00	; 0
+ 13e:	c8 01       	movw	r24, r16
+ 140:	0e 94 76 04 	call	0x8ec	; 0x8ec <memcmp>
+ 144:	89 2b       	or	r24, r25
+ 146:	31 f0       	breq	.+12     	; 0x154 <check_if_uid_in_memory+0x38>
+}
+
+uint8_t check_if_uid_in_memory(uint8_t * scannedUid) 
+{
+	
+	for(int i = 0; i < sizeof(Uids); ++i){
+ 148:	21 96       	adiw	r28, 0x01	; 1
+ 14a:	c8 30       	cpi	r28, 0x08	; 8
+ 14c:	d1 05       	cpc	r29, r1
+ 14e:	70 f3       	brcs	.-36     	; 0x12c <check_if_uid_in_memory+0x10>
+		uint8_t * uid = Uids[i];
+		if(memcmp(scannedUid, uid, 4) == 0){
+			return 1;
+		}
+	}
+	return 0; 
+ 150:	80 e0       	ldi	r24, 0x00	; 0
+ 152:	01 c0       	rjmp	.+2      	; 0x156 <check_if_uid_in_memory+0x3a>
+{
+	
+	for(int i = 0; i < sizeof(Uids); ++i){
+		uint8_t * uid = Uids[i];
+		if(memcmp(scannedUid, uid, 4) == 0){
+			return 1;
+ 154:	81 e0       	ldi	r24, 0x01	; 1
+		}
+	}
+	return 0; 
+}
+ 156:	df 91       	pop	r29
+ 158:	cf 91       	pop	r28
+ 15a:	1f 91       	pop	r17
+ 15c:	0f 91       	pop	r16
+ 15e:	08 95       	ret
+
+00000160 <read_card>:
+			servo_set(150,180);
+		}
+	}
+}
+
+void read_card(){
+ 160:	cf 93       	push	r28
+ 162:	df 93       	push	r29
+ 164:	cd b7       	in	r28, 0x3d	; 61
+ 166:	de b7       	in	r29, 0x3e	; 62
+ 168:	60 97       	sbiw	r28, 0x10	; 16
+ 16a:	0f b6       	in	r0, 0x3f	; 63
+ 16c:	f8 94       	cli
+ 16e:	de bf       	out	0x3e, r29	; 62
+ 170:	0f be       	out	0x3f, r0	; 63
+ 172:	cd bf       	out	0x3d, r28	; 61
+	uint8_t byte; 
+	uint8_t str[MAX_LEN];
+	
+	byte = mfrc522_read(ComIEnReg);
+ 174:	82 e0       	ldi	r24, 0x02	; 2
+ 176:	0e 94 ca 01 	call	0x394	; 0x394 <mfrc522_read>
+	mfrc522_write(ComIEnReg,byte|0x20);
+ 17a:	68 2f       	mov	r22, r24
+ 17c:	60 62       	ori	r22, 0x20	; 32
+ 17e:	82 e0       	ldi	r24, 0x02	; 2
+ 180:	0e 94 b7 01 	call	0x36e	; 0x36e <mfrc522_write>
+	byte = mfrc522_read(DivIEnReg);
+ 184:	83 e0       	ldi	r24, 0x03	; 3
+ 186:	0e 94 ca 01 	call	0x394	; 0x394 <mfrc522_read>
+	mfrc522_write(DivIEnReg,byte|0x80);
+ 18a:	68 2f       	mov	r22, r24
+ 18c:	60 68       	ori	r22, 0x80	; 128
+ 18e:	83 e0       	ldi	r24, 0x03	; 3
+ 190:	0e 94 b7 01 	call	0x36e	; 0x36e <mfrc522_write>
+	
+	while(1){
+		byte = mfrc522_request(PICC_REQALL, str);
+ 194:	be 01       	movw	r22, r28
+ 196:	6f 5f       	subi	r22, 0xFF	; 255
+ 198:	7f 4f       	sbci	r23, 0xFF	; 255
+ 19a:	82 e5       	ldi	r24, 0x52	; 82
+ 19c:	0e 94 05 03 	call	0x60a	; 0x60a <mfrc522_request>
+		if(byte == CARD_FOUND) {
+ 1a0:	81 30       	cpi	r24, 0x01	; 1
+ 1a2:	d1 f4       	brne	.+52     	; 0x1d8 <read_card+0x78>
+			byte = mfrc522_get_card_serial(str);
+ 1a4:	ce 01       	movw	r24, r28
+ 1a6:	01 96       	adiw	r24, 0x01	; 1
+ 1a8:	0e 94 3a 03 	call	0x674	; 0x674 <mfrc522_get_card_serial>
+			if(byte == CARD_FOUND) {
+ 1ac:	81 30       	cpi	r24, 0x01	; 1
+ 1ae:	81 f4       	brne	.+32     	; 0x1d0 <read_card+0x70>
+				if(check_if_uid_in_memory(str)){
+ 1b0:	ce 01       	movw	r24, r28
+ 1b2:	01 96       	adiw	r24, 0x01	; 1
+ 1b4:	0e 94 8e 00 	call	0x11c	; 0x11c <check_if_uid_in_memory>
+ 1b8:	88 23       	and	r24, r24
+ 1ba:	29 f0       	breq	.+10     	; 0x1c6 <read_card+0x66>
+					uart_send_string("Access Granted");
+ 1bc:	86 e3       	ldi	r24, 0x36	; 54
+ 1be:	91 e0       	ldi	r25, 0x01	; 1
+ 1c0:	0e 94 3b 04 	call	0x876	; 0x876 <uart_send_string>
+ 1c4:	09 c0       	rjmp	.+18     	; 0x1d8 <read_card+0x78>
+				} else {
+					uart_send_string("Access Denied");
+ 1c6:	85 e4       	ldi	r24, 0x45	; 69
+ 1c8:	91 e0       	ldi	r25, 0x01	; 1
+ 1ca:	0e 94 3b 04 	call	0x876	; 0x876 <uart_send_string>
+ 1ce:	04 c0       	rjmp	.+8      	; 0x1d8 <read_card+0x78>
+				}
+			} else {
+				uart_send_string("error");
+ 1d0:	83 e5       	ldi	r24, 0x53	; 83
+ 1d2:	91 e0       	ldi	r25, 0x01	; 1
+ 1d4:	0e 94 3b 04 	call	0x876	; 0x876 <uart_send_string>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 1d8:	2f ef       	ldi	r18, 0xFF	; 255
+ 1da:	83 ed       	ldi	r24, 0xD3	; 211
+ 1dc:	90 e3       	ldi	r25, 0x30	; 48
+ 1de:	21 50       	subi	r18, 0x01	; 1
+ 1e0:	80 40       	sbci	r24, 0x00	; 0
+ 1e2:	90 40       	sbci	r25, 0x00	; 0
+ 1e4:	e1 f7       	brne	.-8      	; 0x1de <read_card+0x7e>
+ 1e6:	00 c0       	rjmp	.+0      	; 0x1e8 <read_card+0x88>
+ 1e8:	00 00       	nop
+ 1ea:	d4 cf       	rjmp	.-88     	; 0x194 <read_card+0x34>
+
+000001ec <main>:
+		uart_send_byte('\n');
+		_delay_ms(1000);
+	}
+}
+int main (void) {
+	init();
+ 1ec:	0e 94 53 00 	call	0xa6	; 0xa6 <init>
+	sei();
+ 1f0:	78 94       	sei
+
+	read_card();
+ 1f2:	0e 94 b0 00 	call	0x160	; 0x160 <read_card>
+
+000001f6 <hd44780_outnibble>:
+/*
+ * Send one nibble out to the LCD controller.
+ */
+static void hd44780_outnibble(uint8_t n, uint8_t rs)
+{
+  CLR(PORT, HD44780_RW);
+ 1f6:	9b b1       	in	r25, 0x0b	; 11
+ 1f8:	9f 7b       	andi	r25, 0xBF	; 191
+ 1fa:	9b b9       	out	0x0b, r25	; 11
+  if (rs)
+ 1fc:	66 23       	and	r22, r22
+ 1fe:	21 f0       	breq	.+8      	; 0x208 <hd44780_outnibble+0x12>
+    SET(PORT, HD44780_RS);
+ 200:	9b b1       	in	r25, 0x0b	; 11
+ 202:	90 68       	ori	r25, 0x80	; 128
+ 204:	9b b9       	out	0x0b, r25	; 11
+ 206:	03 c0       	rjmp	.+6      	; 0x20e <hd44780_outnibble+0x18>
+  else
+    CLR(PORT, HD44780_RS);
+ 208:	9b b1       	in	r25, 0x0b	; 11
+ 20a:	9f 77       	andi	r25, 0x7F	; 127
+ 20c:	9b b9       	out	0x0b, r25	; 11
+  ASSIGN(PORT, HD44780_D4, n);
+ 20e:	2b b1       	in	r18, 0x0b	; 11
+ 210:	90 e0       	ldi	r25, 0x00	; 0
+ 212:	88 0f       	add	r24, r24
+ 214:	99 1f       	adc	r25, r25
+ 216:	92 2f       	mov	r25, r18
+ 218:	91 7e       	andi	r25, 0xE1	; 225
+ 21a:	89 2b       	or	r24, r25
+ 21c:	8b b9       	out	0x0b, r24	; 11
+static inline uint8_t hd44780_pulse_e(bool readback) __attribute__((always_inline));
+
+static inline uint8_t hd44780_pulse_e(bool readback) {
+  uint8_t x;
+
+  SET(PORT, HD44780_E);
+ 21e:	8b b1       	in	r24, 0x0b	; 11
+ 220:	80 62       	ori	r24, 0x20	; 32
+ 222:	8b b9       	out	0x0b, r24	; 11
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 224:	82 e0       	ldi	r24, 0x02	; 2
+ 226:	8a 95       	dec	r24
+ 228:	f1 f7       	brne	.-4      	; 0x226 <hd44780_outnibble+0x30>
+ 22a:	00 c0       	rjmp	.+0      	; 0x22c <hd44780_outnibble+0x36>
+#endif
+  if (readback)
+    x = READ(PIN, HD44780_D4);
+  else
+    x = 0;
+  CLR(PORT, HD44780_E);
+ 22c:	8b b1       	in	r24, 0x0b	; 11
+ 22e:	8f 7d       	andi	r24, 0xDF	; 223
+ 230:	8b b9       	out	0x0b, r24	; 11
+ 232:	08 95       	ret
+
+00000234 <hd44780_innibble>:
+ */
+static uint8_t hd44780_innibble(uint8_t rs)
+{
+  uint8_t x;
+
+  SET(PORT, HD44780_RW);
+ 234:	9b b1       	in	r25, 0x0b	; 11
+ 236:	90 64       	ori	r25, 0x40	; 64
+ 238:	9b b9       	out	0x0b, r25	; 11
+  ASSIGN(DDR, HD44780_D4, 0x00);
+ 23a:	9a b1       	in	r25, 0x0a	; 10
+ 23c:	91 7e       	andi	r25, 0xE1	; 225
+ 23e:	9a b9       	out	0x0a, r25	; 10
+  if (rs)
+ 240:	88 23       	and	r24, r24
+ 242:	21 f0       	breq	.+8      	; 0x24c <hd44780_innibble+0x18>
+    SET(PORT, HD44780_RS);
+ 244:	8b b1       	in	r24, 0x0b	; 11
+ 246:	80 68       	ori	r24, 0x80	; 128
+ 248:	8b b9       	out	0x0b, r24	; 11
+ 24a:	03 c0       	rjmp	.+6      	; 0x252 <hd44780_innibble+0x1e>
+  else
+    CLR(PORT, HD44780_RS);
+ 24c:	8b b1       	in	r24, 0x0b	; 11
+ 24e:	8f 77       	andi	r24, 0x7F	; 127
+ 250:	8b b9       	out	0x0b, r24	; 11
+static inline uint8_t hd44780_pulse_e(bool readback) __attribute__((always_inline));
+
+static inline uint8_t hd44780_pulse_e(bool readback) {
+  uint8_t x;
+
+  SET(PORT, HD44780_E);
+ 252:	8b b1       	in	r24, 0x0b	; 11
+ 254:	80 62       	ori	r24, 0x20	; 32
+ 256:	8b b9       	out	0x0b, r24	; 11
+ 258:	82 e0       	ldi	r24, 0x02	; 2
+ 25a:	8a 95       	dec	r24
+ 25c:	f1 f7       	brne	.-4      	; 0x25a <hd44780_innibble+0x26>
+ 25e:	00 c0       	rjmp	.+0      	; 0x260 <hd44780_innibble+0x2c>
+  __asm__ volatile("nop");
+#    endif /* F_CPU > 2000000UL */
+#  endif /* F_CPU > 1000000UL */
+#endif
+  if (readback)
+    x = READ(PIN, HD44780_D4);
+ 260:	89 b1       	in	r24, 0x09	; 9
+ 262:	8e 71       	andi	r24, 0x1E	; 30
+ 264:	90 e0       	ldi	r25, 0x00	; 0
+ 266:	95 95       	asr	r25
+ 268:	87 95       	ror	r24
+  else
+    x = 0;
+  CLR(PORT, HD44780_E);
+ 26a:	9b b1       	in	r25, 0x0b	; 11
+ 26c:	9f 7d       	andi	r25, 0xDF	; 223
+ 26e:	9b b9       	out	0x0b, r25	; 11
+  if (rs)
+    SET(PORT, HD44780_RS);
+  else
+    CLR(PORT, HD44780_RS);
+  x = hd44780_pulse_e(true);
+  ASSIGN(DDR, HD44780_D4, 0x0F);
+ 270:	9a b1       	in	r25, 0x0a	; 10
+ 272:	9e 61       	ori	r25, 0x1E	; 30
+ 274:	9a b9       	out	0x0a, r25	; 10
+  CLR(PORT, HD44780_RW);
+ 276:	9b b1       	in	r25, 0x0b	; 11
+ 278:	9f 7b       	andi	r25, 0xBF	; 191
+ 27a:	9b b9       	out	0x0b, r25	; 11
+
+  return x;
+}
+ 27c:	08 95       	ret
+
+0000027e <hd44780_outbyte>:
+/*
+ * Send one byte to the LCD controller.  As we are in 4-bit mode, we
+ * have to send two nibbles.
+ */
+void hd44780_outbyte(uint8_t b, uint8_t rs)
+{
+ 27e:	cf 93       	push	r28
+ 280:	df 93       	push	r29
+ 282:	c8 2f       	mov	r28, r24
+ 284:	d6 2f       	mov	r29, r22
+  hd44780_outnibble(b >> 4, rs);
+ 286:	82 95       	swap	r24
+ 288:	8f 70       	andi	r24, 0x0F	; 15
+ 28a:	0e 94 fb 00 	call	0x1f6	; 0x1f6 <hd44780_outnibble>
+  hd44780_outnibble(b & 0xf, rs);
+ 28e:	6d 2f       	mov	r22, r29
+ 290:	8c 2f       	mov	r24, r28
+ 292:	8f 70       	andi	r24, 0x0F	; 15
+ 294:	0e 94 fb 00 	call	0x1f6	; 0x1f6 <hd44780_outnibble>
+}
+ 298:	df 91       	pop	r29
+ 29a:	cf 91       	pop	r28
+ 29c:	08 95       	ret
+
+0000029e <hd44780_inbyte>:
+
+/*
+ * Read one byte (i.e. two nibbles) from the LCD controller.
+ */
+uint8_t hd44780_inbyte(uint8_t rs)
+{
+ 29e:	cf 93       	push	r28
+ 2a0:	df 93       	push	r29
+ 2a2:	c8 2f       	mov	r28, r24
+  uint8_t x;
+
+  x = hd44780_innibble(rs) << 4;
+ 2a4:	0e 94 1a 01 	call	0x234	; 0x234 <hd44780_innibble>
+ 2a8:	d8 2f       	mov	r29, r24
+ 2aa:	d2 95       	swap	r29
+ 2ac:	d0 7f       	andi	r29, 0xF0	; 240
+  x |= hd44780_innibble(rs);
+ 2ae:	8c 2f       	mov	r24, r28
+ 2b0:	0e 94 1a 01 	call	0x234	; 0x234 <hd44780_innibble>
+
+  return x;
+}
+ 2b4:	8d 2b       	or	r24, r29
+ 2b6:	df 91       	pop	r29
+ 2b8:	cf 91       	pop	r28
+ 2ba:	08 95       	ret
+
+000002bc <hd44780_wait_ready>:
+ * Wait until the busy flag is cleared.
+ */
+void hd44780_wait_ready(bool longwait)
+{
+#if USE_BUSY_BIT
+  while (hd44780_incmd() & HD44780_BUSYFLAG) ;
+ 2bc:	80 e0       	ldi	r24, 0x00	; 0
+ 2be:	0e 94 4f 01 	call	0x29e	; 0x29e <hd44780_inbyte>
+ 2c2:	88 23       	and	r24, r24
+ 2c4:	dc f3       	brlt	.-10     	; 0x2bc <hd44780_wait_ready>
+  if (longwait)
+    _delay_ms(1.52);
+  else
+    _delay_us(37);
+#endif
+}
+ 2c6:	08 95       	ret
+
+000002c8 <hd44780_init>:
+{
+  //SET(DDR, HD44780_RS);
+  //SET(DDR, HD44780_RW);
+  //SET(DDR, HD44780_E);
+  //ASSIGN(DDR, HD44780_D4, 0x0F);
+  DDRD |= 0b11111110;
+ 2c8:	8a b1       	in	r24, 0x0a	; 10
+ 2ca:	8e 6f       	ori	r24, 0xFE	; 254
+ 2cc:	8a b9       	out	0x0a, r24	; 10
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 2ce:	8f e5       	ldi	r24, 0x5F	; 95
+ 2d0:	9a ee       	ldi	r25, 0xEA	; 234
+ 2d2:	01 97       	sbiw	r24, 0x01	; 1
+ 2d4:	f1 f7       	brne	.-4      	; 0x2d2 <hd44780_init+0xa>
+ 2d6:	00 c0       	rjmp	.+0      	; 0x2d8 <hd44780_init+0x10>
+ 2d8:	00 00       	nop
+
+  _delay_ms(15);		/* 40 ms needed for Vcc = 2.7 V */
+  hd44780_outnibble(HD44780_FNSET(1, 0, 0) >> 4, 0);
+ 2da:	60 e0       	ldi	r22, 0x00	; 0
+ 2dc:	83 e0       	ldi	r24, 0x03	; 3
+ 2de:	0e 94 fb 00 	call	0x1f6	; 0x1f6 <hd44780_outnibble>
+ 2e2:	8f e0       	ldi	r24, 0x0F	; 15
+ 2e4:	90 e4       	ldi	r25, 0x40	; 64
+ 2e6:	01 97       	sbiw	r24, 0x01	; 1
+ 2e8:	f1 f7       	brne	.-4      	; 0x2e6 <hd44780_init+0x1e>
+ 2ea:	00 c0       	rjmp	.+0      	; 0x2ec <hd44780_init+0x24>
+ 2ec:	00 00       	nop
+  _delay_ms(4.1);
+  hd44780_outnibble(HD44780_FNSET(1, 0, 0) >> 4, 0);
+ 2ee:	60 e0       	ldi	r22, 0x00	; 0
+ 2f0:	83 e0       	ldi	r24, 0x03	; 3
+ 2f2:	0e 94 fb 00 	call	0x1f6	; 0x1f6 <hd44780_outnibble>
+ 2f6:	8f e8       	ldi	r24, 0x8F	; 143
+ 2f8:	91 e0       	ldi	r25, 0x01	; 1
+ 2fa:	01 97       	sbiw	r24, 0x01	; 1
+ 2fc:	f1 f7       	brne	.-4      	; 0x2fa <hd44780_init+0x32>
+ 2fe:	00 c0       	rjmp	.+0      	; 0x300 <hd44780_init+0x38>
+ 300:	00 00       	nop
+  _delay_ms(0.1);
+  hd44780_outnibble(HD44780_FNSET(1, 0, 0) >> 4, 0);
+ 302:	60 e0       	ldi	r22, 0x00	; 0
+ 304:	83 e0       	ldi	r24, 0x03	; 3
+ 306:	0e 94 fb 00 	call	0x1f6	; 0x1f6 <hd44780_outnibble>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 30a:	95 ec       	ldi	r25, 0xC5	; 197
+ 30c:	9a 95       	dec	r25
+ 30e:	f1 f7       	brne	.-4      	; 0x30c <hd44780_init+0x44>
+ 310:	00 00       	nop
+  _delay_us(37);
+
+  hd44780_outnibble(HD44780_FNSET(0, 1, 0) >> 4, 0);
+ 312:	60 e0       	ldi	r22, 0x00	; 0
+ 314:	82 e0       	ldi	r24, 0x02	; 2
+ 316:	0e 94 fb 00 	call	0x1f6	; 0x1f6 <hd44780_outnibble>
+  hd44780_wait_ready(false);
+ 31a:	80 e0       	ldi	r24, 0x00	; 0
+ 31c:	0e 94 5e 01 	call	0x2bc	; 0x2bc <hd44780_wait_ready>
+  hd44780_outcmd(HD44780_FNSET(0, 1, 0));
+ 320:	60 e0       	ldi	r22, 0x00	; 0
+ 322:	88 e2       	ldi	r24, 0x28	; 40
+ 324:	0e 94 3f 01 	call	0x27e	; 0x27e <hd44780_outbyte>
+  hd44780_wait_ready(false);
+ 328:	80 e0       	ldi	r24, 0x00	; 0
+ 32a:	0e 94 5e 01 	call	0x2bc	; 0x2bc <hd44780_wait_ready>
+  hd44780_outcmd(HD44780_DISPCTL(0, 0, 0));
+ 32e:	60 e0       	ldi	r22, 0x00	; 0
+ 330:	88 e0       	ldi	r24, 0x08	; 8
+ 332:	0e 94 3f 01 	call	0x27e	; 0x27e <hd44780_outbyte>
+  hd44780_wait_ready(false);
+ 336:	80 e0       	ldi	r24, 0x00	; 0
+ 338:	0e 94 5e 01 	call	0x2bc	; 0x2bc <hd44780_wait_ready>
+ 33c:	08 95       	ret
+
+0000033e <lcd_init>:
+ * Setup the LCD controller.  First, call the hardware initialization
+ * function, then adjust the display attributes we want.
+ */
+void lcd_init(void) {
+
+  hd44780_init();
+ 33e:	0e 94 64 01 	call	0x2c8	; 0x2c8 <hd44780_init>
+
+  /*
+   * Clear the display.
+   */
+  hd44780_outcmd(HD44780_CLR);
+ 342:	60 e0       	ldi	r22, 0x00	; 0
+ 344:	81 e0       	ldi	r24, 0x01	; 1
+ 346:	0e 94 3f 01 	call	0x27e	; 0x27e <hd44780_outbyte>
+  hd44780_wait_ready(true);
+ 34a:	81 e0       	ldi	r24, 0x01	; 1
+ 34c:	0e 94 5e 01 	call	0x2bc	; 0x2bc <hd44780_wait_ready>
+
+  /*
+   * Entry mode: auto-increment address counter, no display shift in
+   * effect.
+   */
+  hd44780_outcmd(HD44780_ENTMODE(1, 0));
+ 350:	60 e0       	ldi	r22, 0x00	; 0
+ 352:	86 e0       	ldi	r24, 0x06	; 6
+ 354:	0e 94 3f 01 	call	0x27e	; 0x27e <hd44780_outbyte>
+  hd44780_wait_ready(false);
+ 358:	80 e0       	ldi	r24, 0x00	; 0
+ 35a:	0e 94 5e 01 	call	0x2bc	; 0x2bc <hd44780_wait_ready>
+
+  /*
+   * Enable display, activate non-blinking cursor.
+   */
+  hd44780_outcmd(HD44780_DISPCTL(1, 1, 0));
+ 35e:	60 e0       	ldi	r22, 0x00	; 0
+ 360:	8e e0       	ldi	r24, 0x0E	; 14
+ 362:	0e 94 3f 01 	call	0x27e	; 0x27e <hd44780_outbyte>
+  hd44780_wait_ready(false);
+ 366:	80 e0       	ldi	r24, 0x00	; 0
+ 368:	0e 94 5e 01 	call	0x2bc	; 0x2bc <hd44780_wait_ready>
+ 36c:	08 95       	ret
+
+0000036e <mfrc522_write>:
+		mfrc522_write(TxControlReg,byte|0x03);
+	}
+}
+
+void mfrc522_write(uint8_t reg, uint8_t data)
+{
+ 36e:	cf 93       	push	r28
+ 370:	c6 2f       	mov	r28, r22
+	ENABLE_CHIP();
+ 372:	95 b1       	in	r25, 0x05	; 5
+ 374:	9b 7f       	andi	r25, 0xFB	; 251
+ 376:	95 b9       	out	0x05, r25	; 5
+	spi_transmit((reg<<1)&0x7E);
+ 378:	90 e0       	ldi	r25, 0x00	; 0
+ 37a:	88 0f       	add	r24, r24
+ 37c:	99 1f       	adc	r25, r25
+ 37e:	8e 77       	andi	r24, 0x7E	; 126
+ 380:	0e 94 7d 03 	call	0x6fa	; 0x6fa <spi_transmit>
+	spi_transmit(data);
+ 384:	8c 2f       	mov	r24, r28
+ 386:	0e 94 7d 03 	call	0x6fa	; 0x6fa <spi_transmit>
+	DISABLE_CHIP();
+ 38a:	85 b1       	in	r24, 0x05	; 5
+ 38c:	84 60       	ori	r24, 0x04	; 4
+ 38e:	85 b9       	out	0x05, r24	; 5
+}
+ 390:	cf 91       	pop	r28
+ 392:	08 95       	ret
+
+00000394 <mfrc522_read>:
+
+uint8_t mfrc522_read(uint8_t reg)
+{
+	uint8_t data;	
+	ENABLE_CHIP();
+ 394:	95 b1       	in	r25, 0x05	; 5
+ 396:	9b 7f       	andi	r25, 0xFB	; 251
+ 398:	95 b9       	out	0x05, r25	; 5
+	spi_transmit(((reg<<1)&0x7E)|0x80);
+ 39a:	90 e0       	ldi	r25, 0x00	; 0
+ 39c:	88 0f       	add	r24, r24
+ 39e:	99 1f       	adc	r25, r25
+ 3a0:	8e 77       	andi	r24, 0x7E	; 126
+ 3a2:	80 68       	ori	r24, 0x80	; 128
+ 3a4:	0e 94 7d 03 	call	0x6fa	; 0x6fa <spi_transmit>
+	data = spi_transmit(0x00);
+ 3a8:	80 e0       	ldi	r24, 0x00	; 0
+ 3aa:	0e 94 7d 03 	call	0x6fa	; 0x6fa <spi_transmit>
+	DISABLE_CHIP();
+ 3ae:	95 b1       	in	r25, 0x05	; 5
+ 3b0:	94 60       	ori	r25, 0x04	; 4
+ 3b2:	95 b9       	out	0x05, r25	; 5
+	return data;
+}
+ 3b4:	08 95       	ret
+
+000003b6 <mfrc522_reset>:
+
+void mfrc522_reset()
+{
+	mfrc522_write(CommandReg, SoftReset_CMD);
+ 3b6:	6f e0       	ldi	r22, 0x0F	; 15
+ 3b8:	81 e0       	ldi	r24, 0x01	; 1
+ 3ba:	0e 94 b7 01 	call	0x36e	; 0x36e <mfrc522_write>
+ 3be:	08 95       	ret
+
+000003c0 <mfrc522_init>:
+#include "spi.h"
+
+void mfrc522_init()
+{
+	uint8_t byte;
+	mfrc522_reset();
+ 3c0:	0e 94 db 01 	call	0x3b6	; 0x3b6 <mfrc522_reset>
+	
+	mfrc522_write(TModeReg, 0x8D);
+ 3c4:	6d e8       	ldi	r22, 0x8D	; 141
+ 3c6:	8a e2       	ldi	r24, 0x2A	; 42
+ 3c8:	0e 94 b7 01 	call	0x36e	; 0x36e <mfrc522_write>
+    mfrc522_write(TPrescalerReg, 0x3E);
+ 3cc:	6e e3       	ldi	r22, 0x3E	; 62
+ 3ce:	8b e2       	ldi	r24, 0x2B	; 43
+ 3d0:	0e 94 b7 01 	call	0x36e	; 0x36e <mfrc522_write>
+    mfrc522_write(TReloadReg_1, 30);   
+ 3d4:	6e e1       	ldi	r22, 0x1E	; 30
+ 3d6:	8c e2       	ldi	r24, 0x2C	; 44
+ 3d8:	0e 94 b7 01 	call	0x36e	; 0x36e <mfrc522_write>
+    mfrc522_write(TReloadReg_2, 0);	
+ 3dc:	60 e0       	ldi	r22, 0x00	; 0
+ 3de:	8d e2       	ldi	r24, 0x2D	; 45
+ 3e0:	0e 94 b7 01 	call	0x36e	; 0x36e <mfrc522_write>
+	mfrc522_write(TxASKReg, 0x40);	
+ 3e4:	60 e4       	ldi	r22, 0x40	; 64
+ 3e6:	85 e1       	ldi	r24, 0x15	; 21
+ 3e8:	0e 94 b7 01 	call	0x36e	; 0x36e <mfrc522_write>
+	mfrc522_write(ModeReg, 0x3D);
+ 3ec:	6d e3       	ldi	r22, 0x3D	; 61
+ 3ee:	81 e1       	ldi	r24, 0x11	; 17
+ 3f0:	0e 94 b7 01 	call	0x36e	; 0x36e <mfrc522_write>
+	
+	byte = mfrc522_read(TxControlReg);
+ 3f4:	84 e1       	ldi	r24, 0x14	; 20
+ 3f6:	0e 94 ca 01 	call	0x394	; 0x394 <mfrc522_read>
+	if(!(byte&0x03))
+ 3fa:	98 2f       	mov	r25, r24
+ 3fc:	93 70       	andi	r25, 0x03	; 3
+ 3fe:	29 f4       	brne	.+10     	; 0x40a <__EEPROM_REGION_LENGTH__+0xa>
+	{
+		mfrc522_write(TxControlReg,byte|0x03);
+ 400:	68 2f       	mov	r22, r24
+ 402:	63 60       	ori	r22, 0x03	; 3
+ 404:	84 e1       	ldi	r24, 0x14	; 20
+ 406:	0e 94 b7 01 	call	0x36e	; 0x36e <mfrc522_write>
+ 40a:	08 95       	ret
+
+0000040c <mfrc522_to_card>:
+   
+	return status;
+}
+
+uint8_t mfrc522_to_card(uint8_t cmd, uint8_t *send_data, uint8_t send_data_len, uint8_t *back_data, uint32_t *back_data_len)
+{
+ 40c:	4f 92       	push	r4
+ 40e:	5f 92       	push	r5
+ 410:	6f 92       	push	r6
+ 412:	7f 92       	push	r7
+ 414:	8f 92       	push	r8
+ 416:	9f 92       	push	r9
+ 418:	af 92       	push	r10
+ 41a:	bf 92       	push	r11
+ 41c:	cf 92       	push	r12
+ 41e:	df 92       	push	r13
+ 420:	ef 92       	push	r14
+ 422:	ff 92       	push	r15
+ 424:	0f 93       	push	r16
+ 426:	1f 93       	push	r17
+ 428:	cf 93       	push	r28
+ 42a:	df 93       	push	r29
+ 42c:	d8 2f       	mov	r29, r24
+ 42e:	7b 01       	movw	r14, r22
+ 430:	c4 2f       	mov	r28, r20
+ 432:	59 01       	movw	r10, r18
+    uint8_t lastBits;
+    uint8_t n;
+    uint8_t	tmp;
+    uint32_t i;
+
+    switch (cmd)
+ 434:	8c 30       	cpi	r24, 0x0C	; 12
+ 436:	29 f0       	breq	.+10     	; 0x442 <mfrc522_to_card+0x36>
+ 438:	8e 30       	cpi	r24, 0x0E	; 14
+ 43a:	61 f0       	breq	.+24     	; 0x454 <mfrc522_to_card+0x48>
+
+uint8_t mfrc522_to_card(uint8_t cmd, uint8_t *send_data, uint8_t send_data_len, uint8_t *back_data, uint32_t *back_data_len)
+{
+	uint8_t status = ERROR;
+    uint8_t irqEn = 0x00;
+    uint8_t waitIRq = 0x00;
+ 43c:	91 2c       	mov	r9, r1
+}
+
+uint8_t mfrc522_to_card(uint8_t cmd, uint8_t *send_data, uint8_t send_data_len, uint8_t *back_data, uint32_t *back_data_len)
+{
+	uint8_t status = ERROR;
+    uint8_t irqEn = 0x00;
+ 43e:	81 2c       	mov	r8, r1
+ 440:	10 c0       	rjmp	.+32     	; 0x462 <mfrc522_to_card+0x56>
+			break;
+		}
+		case Transceive_CMD:	//Transmit FIFO data
+		{
+			irqEn = 0x77;
+			waitIRq = 0x30;
+ 442:	0f 2e       	mov	r0, r31
+ 444:	f0 e3       	ldi	r31, 0x30	; 48
+ 446:	9f 2e       	mov	r9, r31
+ 448:	f0 2d       	mov	r31, r0
+			waitIRq = 0x10;
+			break;
+		}
+		case Transceive_CMD:	//Transmit FIFO data
+		{
+			irqEn = 0x77;
+ 44a:	0f 2e       	mov	r0, r31
+ 44c:	f7 e7       	ldi	r31, 0x77	; 119
+ 44e:	8f 2e       	mov	r8, r31
+ 450:	f0 2d       	mov	r31, r0
+			waitIRq = 0x30;
+			break;
+ 452:	07 c0       	rjmp	.+14     	; 0x462 <mfrc522_to_card+0x56>
+    switch (cmd)
+    {
+        case MFAuthent_CMD:		//Certification cards close
+		{
+			irqEn = 0x12;
+			waitIRq = 0x10;
+ 454:	68 94       	set
+ 456:	99 24       	eor	r9, r9
+ 458:	94 f8       	bld	r9, 4
+
+    switch (cmd)
+    {
+        case MFAuthent_CMD:		//Certification cards close
+		{
+			irqEn = 0x12;
+ 45a:	0f 2e       	mov	r0, r31
+ 45c:	f2 e1       	ldi	r31, 0x12	; 18
+ 45e:	8f 2e       	mov	r8, r31
+ 460:	f0 2d       	mov	r31, r0
+		default:
+			break;
+    }
+   
+    //mfrc522_write(ComIEnReg, irqEn|0x80);	//Interrupt request
+    n=mfrc522_read(ComIrqReg);
+ 462:	84 e0       	ldi	r24, 0x04	; 4
+ 464:	0e 94 ca 01 	call	0x394	; 0x394 <mfrc522_read>
+    mfrc522_write(ComIrqReg,n&(~0x80));//clear all interrupt bits
+ 468:	68 2f       	mov	r22, r24
+ 46a:	6f 77       	andi	r22, 0x7F	; 127
+ 46c:	84 e0       	ldi	r24, 0x04	; 4
+ 46e:	0e 94 b7 01 	call	0x36e	; 0x36e <mfrc522_write>
+    n=mfrc522_read(FIFOLevelReg);
+ 472:	8a e0       	ldi	r24, 0x0A	; 10
+ 474:	0e 94 ca 01 	call	0x394	; 0x394 <mfrc522_read>
+    mfrc522_write(FIFOLevelReg,n|0x80);//flush FIFO data
+ 478:	68 2f       	mov	r22, r24
+ 47a:	60 68       	ori	r22, 0x80	; 128
+ 47c:	8a e0       	ldi	r24, 0x0A	; 10
+ 47e:	0e 94 b7 01 	call	0x36e	; 0x36e <mfrc522_write>
+    
+	mfrc522_write(CommandReg, Idle_CMD);	//NO action; Cancel the current cmd???
+ 482:	60 e0       	ldi	r22, 0x00	; 0
+ 484:	81 e0       	ldi	r24, 0x01	; 1
+ 486:	0e 94 b7 01 	call	0x36e	; 0x36e <mfrc522_write>
+
+	//Writing data to the FIFO
+    for (i=0; i<send_data_len; i++)
+ 48a:	41 2c       	mov	r4, r1
+ 48c:	51 2c       	mov	r5, r1
+ 48e:	32 01       	movw	r6, r4
+ 490:	0c c0       	rjmp	.+24     	; 0x4aa <mfrc522_to_card+0x9e>
+    {   
+		mfrc522_write(FIFODataReg, send_data[i]);    
+ 492:	f7 01       	movw	r30, r14
+ 494:	e4 0d       	add	r30, r4
+ 496:	f5 1d       	adc	r31, r5
+ 498:	60 81       	ld	r22, Z
+ 49a:	89 e0       	ldi	r24, 0x09	; 9
+ 49c:	0e 94 b7 01 	call	0x36e	; 0x36e <mfrc522_write>
+    mfrc522_write(FIFOLevelReg,n|0x80);//flush FIFO data
+    
+	mfrc522_write(CommandReg, Idle_CMD);	//NO action; Cancel the current cmd???
+
+	//Writing data to the FIFO
+    for (i=0; i<send_data_len; i++)
+ 4a0:	8f ef       	ldi	r24, 0xFF	; 255
+ 4a2:	48 1a       	sub	r4, r24
+ 4a4:	58 0a       	sbc	r5, r24
+ 4a6:	68 0a       	sbc	r6, r24
+ 4a8:	78 0a       	sbc	r7, r24
+ 4aa:	8c 2f       	mov	r24, r28
+ 4ac:	90 e0       	ldi	r25, 0x00	; 0
+ 4ae:	a0 e0       	ldi	r26, 0x00	; 0
+ 4b0:	b0 e0       	ldi	r27, 0x00	; 0
+ 4b2:	48 16       	cp	r4, r24
+ 4b4:	59 06       	cpc	r5, r25
+ 4b6:	6a 06       	cpc	r6, r26
+ 4b8:	7b 06       	cpc	r7, r27
+ 4ba:	58 f3       	brcs	.-42     	; 0x492 <mfrc522_to_card+0x86>
+    {   
+		mfrc522_write(FIFODataReg, send_data[i]);    
+	}
+
+	//Execute the cmd
+	mfrc522_write(CommandReg, cmd);
+ 4bc:	6d 2f       	mov	r22, r29
+ 4be:	81 e0       	ldi	r24, 0x01	; 1
+ 4c0:	0e 94 b7 01 	call	0x36e	; 0x36e <mfrc522_write>
+    if (cmd == Transceive_CMD)
+ 4c4:	dc 30       	cpi	r29, 0x0C	; 12
+ 4c6:	41 f4       	brne	.+16     	; 0x4d8 <mfrc522_to_card+0xcc>
+    {    
+		n=mfrc522_read(BitFramingReg);
+ 4c8:	8d e0       	ldi	r24, 0x0D	; 13
+ 4ca:	0e 94 ca 01 	call	0x394	; 0x394 <mfrc522_read>
+		mfrc522_write(BitFramingReg,n|0x80);  
+ 4ce:	68 2f       	mov	r22, r24
+ 4d0:	60 68       	ori	r22, 0x80	; 128
+ 4d2:	8d e0       	ldi	r24, 0x0D	; 13
+ 4d4:	0e 94 b7 01 	call	0x36e	; 0x36e <mfrc522_write>
+    mfrc522_write(FIFOLevelReg,n|0x80);//flush FIFO data
+    
+	mfrc522_write(CommandReg, Idle_CMD);	//NO action; Cancel the current cmd???
+
+	//Writing data to the FIFO
+    for (i=0; i<send_data_len; i++)
+ 4d8:	0f 2e       	mov	r0, r31
+ 4da:	f0 ed       	ldi	r31, 0xD0	; 208
+ 4dc:	cf 2e       	mov	r12, r31
+ 4de:	f7 e0       	ldi	r31, 0x07	; 7
+ 4e0:	df 2e       	mov	r13, r31
+ 4e2:	e1 2c       	mov	r14, r1
+ 4e4:	f1 2c       	mov	r15, r1
+ 4e6:	f0 2d       	mov	r31, r0
+	i = 2000;	//i according to the clock frequency adjustment, the operator M1 card maximum waiting time 25ms???
+    do 
+    {
+		//CommIrqReg[7..0]
+		//Set1 TxIRq RxIRq IdleIRq HiAlerIRq LoAlertIRq ErrIRq TimerIRq
+        n = mfrc522_read(ComIrqReg);
+ 4e8:	84 e0       	ldi	r24, 0x04	; 4
+ 4ea:	0e 94 ca 01 	call	0x394	; 0x394 <mfrc522_read>
+ 4ee:	c8 2f       	mov	r28, r24
+        i--;
+ 4f0:	e1 e0       	ldi	r30, 0x01	; 1
+ 4f2:	ce 1a       	sub	r12, r30
+ 4f4:	d1 08       	sbc	r13, r1
+ 4f6:	e1 08       	sbc	r14, r1
+ 4f8:	f1 08       	sbc	r15, r1
+    }
+    while ((i!=0) && !(n&0x01) && !(n&waitIRq));
+ 4fa:	29 f0       	breq	.+10     	; 0x506 <mfrc522_to_card+0xfa>
+ 4fc:	80 fd       	sbrc	r24, 0
+ 4fe:	03 c0       	rjmp	.+6      	; 0x506 <mfrc522_to_card+0xfa>
+ 500:	89 2d       	mov	r24, r9
+ 502:	8c 23       	and	r24, r28
+ 504:	89 f3       	breq	.-30     	; 0x4e8 <mfrc522_to_card+0xdc>
+
+	tmp=mfrc522_read(BitFramingReg);
+ 506:	8d e0       	ldi	r24, 0x0D	; 13
+ 508:	0e 94 ca 01 	call	0x394	; 0x394 <mfrc522_read>
+	mfrc522_write(BitFramingReg,tmp&(~0x80));
+ 50c:	68 2f       	mov	r22, r24
+ 50e:	6f 77       	andi	r22, 0x7F	; 127
+ 510:	8d e0       	ldi	r24, 0x0D	; 13
+ 512:	0e 94 b7 01 	call	0x36e	; 0x36e <mfrc522_write>
+	
+    if (i != 0)
+ 516:	cd 28       	or	r12, r13
+ 518:	ce 28       	or	r12, r14
+ 51a:	cf 28       	or	r12, r15
+ 51c:	09 f4       	brne	.+2      	; 0x520 <mfrc522_to_card+0x114>
+ 51e:	60 c0       	rjmp	.+192    	; 0x5e0 <mfrc522_to_card+0x1d4>
+    {    
+        if(!(mfrc522_read(ErrorReg) & 0x1B))	//BufferOvfl Collerr CRCErr ProtecolErr
+ 520:	86 e0       	ldi	r24, 0x06	; 6
+ 522:	0e 94 ca 01 	call	0x394	; 0x394 <mfrc522_read>
+ 526:	8b 71       	andi	r24, 0x1B	; 27
+ 528:	09 f0       	breq	.+2      	; 0x52c <mfrc522_to_card+0x120>
+ 52a:	5c c0       	rjmp	.+184    	; 0x5e4 <mfrc522_to_card+0x1d8>
+        {
+            status = CARD_FOUND;
+            if (n & irqEn & 0x01)
+ 52c:	c8 21       	and	r28, r8
+ 52e:	c0 fd       	sbrc	r28, 0
+ 530:	02 c0       	rjmp	.+4      	; 0x536 <mfrc522_to_card+0x12a>
+	
+    if (i != 0)
+    {    
+        if(!(mfrc522_read(ErrorReg) & 0x1B))	//BufferOvfl Collerr CRCErr ProtecolErr
+        {
+            status = CARD_FOUND;
+ 532:	c1 e0       	ldi	r28, 0x01	; 1
+ 534:	01 c0       	rjmp	.+2      	; 0x538 <mfrc522_to_card+0x12c>
+            if (n & irqEn & 0x01)
+            {   
+				status = CARD_NOT_FOUND;			//??   
+ 536:	c2 e0       	ldi	r28, 0x02	; 2
+			}
+
+            if (cmd == Transceive_CMD)
+ 538:	dc 30       	cpi	r29, 0x0C	; 12
+ 53a:	09 f0       	breq	.+2      	; 0x53e <mfrc522_to_card+0x132>
+ 53c:	54 c0       	rjmp	.+168    	; 0x5e6 <mfrc522_to_card+0x1da>
+            {
+               	n = mfrc522_read(FIFOLevelReg);
+ 53e:	8a e0       	ldi	r24, 0x0A	; 10
+ 540:	0e 94 ca 01 	call	0x394	; 0x394 <mfrc522_read>
+ 544:	d8 2f       	mov	r29, r24
+              	lastBits = mfrc522_read(ControlReg) & 0x07;
+ 546:	8c e0       	ldi	r24, 0x0C	; 12
+ 548:	0e 94 ca 01 	call	0x394	; 0x394 <mfrc522_read>
+ 54c:	28 2f       	mov	r18, r24
+ 54e:	27 70       	andi	r18, 0x07	; 7
+                if (lastBits)
+ 550:	a9 f0       	breq	.+42     	; 0x57c <mfrc522_to_card+0x170>
+                {   
+					*back_data_len = (n-1)*8 + lastBits;   
+ 552:	8d 2f       	mov	r24, r29
+ 554:	90 e0       	ldi	r25, 0x00	; 0
+ 556:	01 97       	sbiw	r24, 0x01	; 1
+ 558:	88 0f       	add	r24, r24
+ 55a:	99 1f       	adc	r25, r25
+ 55c:	88 0f       	add	r24, r24
+ 55e:	99 1f       	adc	r25, r25
+ 560:	88 0f       	add	r24, r24
+ 562:	99 1f       	adc	r25, r25
+ 564:	82 0f       	add	r24, r18
+ 566:	91 1d       	adc	r25, r1
+ 568:	09 2e       	mov	r0, r25
+ 56a:	00 0c       	add	r0, r0
+ 56c:	aa 0b       	sbc	r26, r26
+ 56e:	bb 0b       	sbc	r27, r27
+ 570:	f8 01       	movw	r30, r16
+ 572:	80 83       	st	Z, r24
+ 574:	91 83       	std	Z+1, r25	; 0x01
+ 576:	a2 83       	std	Z+2, r26	; 0x02
+ 578:	b3 83       	std	Z+3, r27	; 0x03
+ 57a:	11 c0       	rjmp	.+34     	; 0x59e <mfrc522_to_card+0x192>
+				}
+                else
+                {   
+					*back_data_len = n*8;   
+ 57c:	8d 2f       	mov	r24, r29
+ 57e:	90 e0       	ldi	r25, 0x00	; 0
+ 580:	88 0f       	add	r24, r24
+ 582:	99 1f       	adc	r25, r25
+ 584:	88 0f       	add	r24, r24
+ 586:	99 1f       	adc	r25, r25
+ 588:	88 0f       	add	r24, r24
+ 58a:	99 1f       	adc	r25, r25
+ 58c:	09 2e       	mov	r0, r25
+ 58e:	00 0c       	add	r0, r0
+ 590:	aa 0b       	sbc	r26, r26
+ 592:	bb 0b       	sbc	r27, r27
+ 594:	f8 01       	movw	r30, r16
+ 596:	80 83       	st	Z, r24
+ 598:	91 83       	std	Z+1, r25	; 0x01
+ 59a:	a2 83       	std	Z+2, r26	; 0x02
+ 59c:	b3 83       	std	Z+3, r27	; 0x03
+				}
+
+                if (n == 0)
+ 59e:	d1 11       	cpse	r29, r1
+ 5a0:	01 c0       	rjmp	.+2      	; 0x5a4 <mfrc522_to_card+0x198>
+                {   
+					n = 1;    
+ 5a2:	d1 e0       	ldi	r29, 0x01	; 1
+				}
+                if (n > MAX_LEN)
+ 5a4:	d1 31       	cpi	r29, 0x11	; 17
+ 5a6:	08 f0       	brcs	.+2      	; 0x5aa <mfrc522_to_card+0x19e>
+                {   
+					n = MAX_LEN;   
+ 5a8:	d0 e1       	ldi	r29, 0x10	; 16
+				}
+				
+				//Reading the received data in FIFO
+                for (i=0; i<n; i++)
+ 5aa:	c1 2c       	mov	r12, r1
+ 5ac:	d1 2c       	mov	r13, r1
+ 5ae:	76 01       	movw	r14, r12
+ 5b0:	0d c0       	rjmp	.+26     	; 0x5cc <mfrc522_to_card+0x1c0>
+                {   
+					back_data[i] = mfrc522_read(FIFODataReg);    
+ 5b2:	85 01       	movw	r16, r10
+ 5b4:	0c 0d       	add	r16, r12
+ 5b6:	1d 1d       	adc	r17, r13
+ 5b8:	89 e0       	ldi	r24, 0x09	; 9
+ 5ba:	0e 94 ca 01 	call	0x394	; 0x394 <mfrc522_read>
+ 5be:	f8 01       	movw	r30, r16
+ 5c0:	80 83       	st	Z, r24
+                {   
+					n = MAX_LEN;   
+				}
+				
+				//Reading the received data in FIFO
+                for (i=0; i<n; i++)
+ 5c2:	ff ef       	ldi	r31, 0xFF	; 255
+ 5c4:	cf 1a       	sub	r12, r31
+ 5c6:	df 0a       	sbc	r13, r31
+ 5c8:	ef 0a       	sbc	r14, r31
+ 5ca:	ff 0a       	sbc	r15, r31
+ 5cc:	8d 2f       	mov	r24, r29
+ 5ce:	90 e0       	ldi	r25, 0x00	; 0
+ 5d0:	a0 e0       	ldi	r26, 0x00	; 0
+ 5d2:	b0 e0       	ldi	r27, 0x00	; 0
+ 5d4:	c8 16       	cp	r12, r24
+ 5d6:	d9 06       	cpc	r13, r25
+ 5d8:	ea 06       	cpc	r14, r26
+ 5da:	fb 06       	cpc	r15, r27
+ 5dc:	50 f3       	brcs	.-44     	; 0x5b2 <mfrc522_to_card+0x1a6>
+ 5de:	03 c0       	rjmp	.+6      	; 0x5e6 <mfrc522_to_card+0x1da>
+	return status;
+}
+
+uint8_t mfrc522_to_card(uint8_t cmd, uint8_t *send_data, uint8_t send_data_len, uint8_t *back_data, uint32_t *back_data_len)
+{
+	uint8_t status = ERROR;
+ 5e0:	c3 e0       	ldi	r28, 0x03	; 3
+ 5e2:	01 c0       	rjmp	.+2      	; 0x5e6 <mfrc522_to_card+0x1da>
+				}
+            }
+        }
+        else
+        {   
+			status = ERROR;  
+ 5e4:	c3 e0       	ldi	r28, 0x03	; 3
+	
+    //SetBitMask(ControlReg,0x80);           //timer stops
+    //mfrc522_write(cmdReg, PCD_IDLE); 
+
+    return status;
+}
+ 5e6:	8c 2f       	mov	r24, r28
+ 5e8:	df 91       	pop	r29
+ 5ea:	cf 91       	pop	r28
+ 5ec:	1f 91       	pop	r17
+ 5ee:	0f 91       	pop	r16
+ 5f0:	ff 90       	pop	r15
+ 5f2:	ef 90       	pop	r14
+ 5f4:	df 90       	pop	r13
+ 5f6:	cf 90       	pop	r12
+ 5f8:	bf 90       	pop	r11
+ 5fa:	af 90       	pop	r10
+ 5fc:	9f 90       	pop	r9
+ 5fe:	8f 90       	pop	r8
+ 600:	7f 90       	pop	r7
+ 602:	6f 90       	pop	r6
+ 604:	5f 90       	pop	r5
+ 606:	4f 90       	pop	r4
+ 608:	08 95       	ret
+
+0000060a <mfrc522_request>:
+{
+	mfrc522_write(CommandReg, SoftReset_CMD);
+}
+
+uint8_t	mfrc522_request(uint8_t req_mode, uint8_t * tag_type)
+{
+ 60a:	ef 92       	push	r14
+ 60c:	ff 92       	push	r15
+ 60e:	0f 93       	push	r16
+ 610:	1f 93       	push	r17
+ 612:	cf 93       	push	r28
+ 614:	df 93       	push	r29
+ 616:	00 d0       	rcall	.+0      	; 0x618 <mfrc522_request+0xe>
+ 618:	00 d0       	rcall	.+0      	; 0x61a <mfrc522_request+0x10>
+ 61a:	cd b7       	in	r28, 0x3d	; 61
+ 61c:	de b7       	in	r29, 0x3e	; 62
+ 61e:	18 2f       	mov	r17, r24
+ 620:	7b 01       	movw	r14, r22
+	uint8_t  status;  
+	uint32_t backBits;//The received data bits
+
+	mfrc522_write(BitFramingReg, 0x07);//TxLastBists = BitFramingReg[2..0]	???
+ 622:	67 e0       	ldi	r22, 0x07	; 7
+ 624:	8d e0       	ldi	r24, 0x0D	; 13
+ 626:	0e 94 b7 01 	call	0x36e	; 0x36e <mfrc522_write>
+	
+	tag_type[0] = req_mode;
+ 62a:	f7 01       	movw	r30, r14
+ 62c:	10 83       	st	Z, r17
+	status = mfrc522_to_card(Transceive_CMD, tag_type, 1, tag_type, &backBits);
+ 62e:	8e 01       	movw	r16, r28
+ 630:	0f 5f       	subi	r16, 0xFF	; 255
+ 632:	1f 4f       	sbci	r17, 0xFF	; 255
+ 634:	97 01       	movw	r18, r14
+ 636:	41 e0       	ldi	r20, 0x01	; 1
+ 638:	b7 01       	movw	r22, r14
+ 63a:	8c e0       	ldi	r24, 0x0C	; 12
+ 63c:	0e 94 06 02 	call	0x40c	; 0x40c <mfrc522_to_card>
+
+	if ((status != CARD_FOUND) || (backBits != 0x10))
+ 640:	81 30       	cpi	r24, 0x01	; 1
+ 642:	51 f4       	brne	.+20     	; 0x658 <mfrc522_request+0x4e>
+ 644:	49 81       	ldd	r20, Y+1	; 0x01
+ 646:	5a 81       	ldd	r21, Y+2	; 0x02
+ 648:	6b 81       	ldd	r22, Y+3	; 0x03
+ 64a:	7c 81       	ldd	r23, Y+4	; 0x04
+ 64c:	40 31       	cpi	r20, 0x10	; 16
+ 64e:	51 05       	cpc	r21, r1
+ 650:	61 05       	cpc	r22, r1
+ 652:	71 05       	cpc	r23, r1
+ 654:	19 f4       	brne	.+6      	; 0x65c <mfrc522_request+0x52>
+ 656:	03 c0       	rjmp	.+6      	; 0x65e <mfrc522_request+0x54>
+	{    
+		status = ERROR;
+ 658:	83 e0       	ldi	r24, 0x03	; 3
+ 65a:	01 c0       	rjmp	.+2      	; 0x65e <mfrc522_request+0x54>
+ 65c:	83 e0       	ldi	r24, 0x03	; 3
+	}
+   
+	return status;
+}
+ 65e:	0f 90       	pop	r0
+ 660:	0f 90       	pop	r0
+ 662:	0f 90       	pop	r0
+ 664:	0f 90       	pop	r0
+ 666:	df 91       	pop	r29
+ 668:	cf 91       	pop	r28
+ 66a:	1f 91       	pop	r17
+ 66c:	0f 91       	pop	r16
+ 66e:	ff 90       	pop	r15
+ 670:	ef 90       	pop	r14
+ 672:	08 95       	ret
+
+00000674 <mfrc522_get_card_serial>:
+    return status;
+}
+
+
+uint8_t mfrc522_get_card_serial(uint8_t * serial_out)
+{
+ 674:	ef 92       	push	r14
+ 676:	ff 92       	push	r15
+ 678:	0f 93       	push	r16
+ 67a:	1f 93       	push	r17
+ 67c:	cf 93       	push	r28
+ 67e:	df 93       	push	r29
+ 680:	00 d0       	rcall	.+0      	; 0x682 <mfrc522_get_card_serial+0xe>
+ 682:	00 d0       	rcall	.+0      	; 0x684 <mfrc522_get_card_serial+0x10>
+ 684:	cd b7       	in	r28, 0x3d	; 61
+ 686:	de b7       	in	r29, 0x3e	; 62
+ 688:	7c 01       	movw	r14, r24
+	uint8_t status;
+    uint8_t i;
+	uint8_t serNumCheck=0;
+    uint32_t unLen;
+    
+	mfrc522_write(BitFramingReg, 0x00);		//TxLastBists = BitFramingReg[2..0]
+ 68a:	60 e0       	ldi	r22, 0x00	; 0
+ 68c:	8d e0       	ldi	r24, 0x0D	; 13
+ 68e:	0e 94 b7 01 	call	0x36e	; 0x36e <mfrc522_write>
+ 
+    serial_out[0] = PICC_ANTICOLL;
+ 692:	83 e9       	ldi	r24, 0x93	; 147
+ 694:	f7 01       	movw	r30, r14
+ 696:	80 83       	st	Z, r24
+    serial_out[1] = 0x20;
+ 698:	80 e2       	ldi	r24, 0x20	; 32
+ 69a:	81 83       	std	Z+1, r24	; 0x01
+    status = mfrc522_to_card(Transceive_CMD, serial_out, 2, serial_out, &unLen);
+ 69c:	8e 01       	movw	r16, r28
+ 69e:	0f 5f       	subi	r16, 0xFF	; 255
+ 6a0:	1f 4f       	sbci	r17, 0xFF	; 255
+ 6a2:	97 01       	movw	r18, r14
+ 6a4:	42 e0       	ldi	r20, 0x02	; 2
+ 6a6:	b7 01       	movw	r22, r14
+ 6a8:	8c e0       	ldi	r24, 0x0C	; 12
+ 6aa:	0e 94 06 02 	call	0x40c	; 0x40c <mfrc522_to_card>
+
+    if (status == CARD_FOUND)
+ 6ae:	81 30       	cpi	r24, 0x01	; 1
+ 6b0:	91 f4       	brne	.+36     	; 0x6d6 <mfrc522_get_card_serial+0x62>
+ 6b2:	07 c0       	rjmp	.+14     	; 0x6c2 <mfrc522_get_card_serial+0x4e>
+	{
+		//Check card serial number
+		for (i=0; i<4; i++)
+		{   
+		 	serNumCheck ^= serial_out[i];
+ 6b4:	f7 01       	movw	r30, r14
+ 6b6:	e9 0f       	add	r30, r25
+ 6b8:	f1 1d       	adc	r31, r1
+ 6ba:	30 81       	ld	r19, Z
+ 6bc:	23 27       	eor	r18, r19
+    status = mfrc522_to_card(Transceive_CMD, serial_out, 2, serial_out, &unLen);
+
+    if (status == CARD_FOUND)
+	{
+		//Check card serial number
+		for (i=0; i<4; i++)
+ 6be:	9f 5f       	subi	r25, 0xFF	; 255
+ 6c0:	02 c0       	rjmp	.+4      	; 0x6c6 <mfrc522_get_card_serial+0x52>
+ 6c2:	20 e0       	ldi	r18, 0x00	; 0
+ 6c4:	90 e0       	ldi	r25, 0x00	; 0
+ 6c6:	94 30       	cpi	r25, 0x04	; 4
+ 6c8:	a8 f3       	brcs	.-22     	; 0x6b4 <mfrc522_get_card_serial+0x40>
+		{   
+		 	serNumCheck ^= serial_out[i];
+		}
+		if (serNumCheck != serial_out[i])
+ 6ca:	f7 01       	movw	r30, r14
+ 6cc:	e9 0f       	add	r30, r25
+ 6ce:	f1 1d       	adc	r31, r1
+ 6d0:	90 81       	ld	r25, Z
+ 6d2:	29 13       	cpse	r18, r25
+		{   
+			status = ERROR;    
+ 6d4:	83 e0       	ldi	r24, 0x03	; 3
+		}
+    }
+    return status;
+}
+ 6d6:	0f 90       	pop	r0
+ 6d8:	0f 90       	pop	r0
+ 6da:	0f 90       	pop	r0
+ 6dc:	0f 90       	pop	r0
+ 6de:	df 91       	pop	r29
+ 6e0:	cf 91       	pop	r28
+ 6e2:	1f 91       	pop	r17
+ 6e4:	0f 91       	pop	r16
+ 6e6:	ff 90       	pop	r15
+ 6e8:	ef 90       	pop	r14
+ 6ea:	08 95       	ret
+
+000006ec <spi_init>:
+#include "spi.h"
+
+#if SPI_CONFIG_AS_MASTER
+void spi_init()
+{
+	SPI_DDR |= (1<<SPI_MOSI)|(1<<SPI_SCK)|(1<<SPI_SS);
+ 6ec:	84 b1       	in	r24, 0x04	; 4
+ 6ee:	8c 62       	ori	r24, 0x2C	; 44
+ 6f0:	84 b9       	out	0x04, r24	; 4
+	SPCR |= (1<<SPE)|(1<<MSTR)|(1<<SPR0); //prescaler 16
+ 6f2:	8c b5       	in	r24, 0x2c	; 44
+ 6f4:	81 65       	ori	r24, 0x51	; 81
+ 6f6:	8c bd       	out	0x2c, r24	; 44
+ 6f8:	08 95       	ret
+
+000006fa <spi_transmit>:
+}
+
+
+uint8_t spi_transmit(uint8_t data)
+{
+	SPDR = data;
+ 6fa:	8e bd       	out	0x2e, r24	; 46
+	while(!(SPSR & (1<<SPIF)));
+ 6fc:	0d b4       	in	r0, 0x2d	; 45
+ 6fe:	07 fe       	sbrs	r0, 7
+ 700:	fd cf       	rjmp	.-6      	; 0x6fc <spi_transmit+0x2>
+	
+	return SPDR;
+ 702:	8e b5       	in	r24, 0x2e	; 46
+}
+ 704:	08 95       	ret
+
+00000706 <__vector_13>:
+
+#include "Timer1.h"
+
+volatile static uint8_t update_pwm_ready = 0;
+
+ISR(TIMER1_OVF_vect){
+ 706:	1f 92       	push	r1
+ 708:	0f 92       	push	r0
+ 70a:	0f b6       	in	r0, 0x3f	; 63
+ 70c:	0f 92       	push	r0
+ 70e:	11 24       	eor	r1, r1
+	
+	update_pwm_ready = 0;
+ 710:	10 92 5a 01 	sts	0x015A, r1	; 0x80015a <__data_end>
+}
+ 714:	0f 90       	pop	r0
+ 716:	0f be       	out	0x3f, r0	; 63
+ 718:	0f 90       	pop	r0
+ 71a:	1f 90       	pop	r1
+ 71c:	18 95       	reti
+
+0000071e <__vector_11>:
+
+ISR(TIMER1_COMPA_vect){
+ 71e:	1f 92       	push	r1
+ 720:	0f 92       	push	r0
+ 722:	0f b6       	in	r0, 0x3f	; 63
+ 724:	0f 92       	push	r0
+ 726:	11 24       	eor	r1, r1
+	
+}
+ 728:	0f 90       	pop	r0
+ 72a:	0f be       	out	0x3f, r0	; 63
+ 72c:	0f 90       	pop	r0
+ 72e:	1f 90       	pop	r1
+ 730:	18 95       	reti
+
+00000732 <pwm_init>:
+
+void pwm_init(void){
+	DDRB |= (1 << DDB1);
+ 732:	84 b1       	in	r24, 0x04	; 4
+ 734:	82 60       	ori	r24, 0x02	; 2
+ 736:	84 b9       	out	0x04, r24	; 4
+	
+	TIMSK1 = (1 << TOIE1) | (1 << OCIE1A);
+ 738:	83 e0       	ldi	r24, 0x03	; 3
+ 73a:	80 93 6f 00 	sts	0x006F, r24	; 0x80006f <__TEXT_REGION_LENGTH__+0x7f806f>
+	
+	ICR1H = (PWM_TOP & 0xFF00) >> 8;
+ 73e:	8c e9       	ldi	r24, 0x9C	; 156
+ 740:	80 93 87 00 	sts	0x0087, r24	; 0x800087 <__TEXT_REGION_LENGTH__+0x7f8087>
+	ICR1L = (PWM_TOP & 0x00FF);
+ 744:	8f e3       	ldi	r24, 0x3F	; 63
+ 746:	80 93 86 00 	sts	0x0086, r24	; 0x800086 <__TEXT_REGION_LENGTH__+0x7f8086>
+	
+	OCR1AH = (SERVO_MIN & 0xFF00) >> 8;
+ 74a:	87 e0       	ldi	r24, 0x07	; 7
+ 74c:	80 93 89 00 	sts	0x0089, r24	; 0x800089 <__TEXT_REGION_LENGTH__+0x7f8089>
+	OCR1AL = (SERVO_MIN & 0x00FF);
+ 750:	8f ec       	ldi	r24, 0xCF	; 207
+ 752:	80 93 88 00 	sts	0x0088, r24	; 0x800088 <__TEXT_REGION_LENGTH__+0x7f8088>
+	
+	TCCR1A = (0b10 << COM1A0) | (0b00 << COM1B0) | (0b10 << WGM10);
+ 756:	82 e8       	ldi	r24, 0x82	; 130
+ 758:	80 93 80 00 	sts	0x0080, r24	; 0x800080 <__TEXT_REGION_LENGTH__+0x7f8080>
+	
+	TCCR1B = (0b11 << WGM12) | (0b010 << CS10);
+ 75c:	8a e1       	ldi	r24, 0x1A	; 26
+ 75e:	80 93 81 00 	sts	0x0081, r24	; 0x800081 <__TEXT_REGION_LENGTH__+0x7f8081>
+ 762:	08 95       	ret
+
+00000764 <__vector_18>:
+	uart_tx_busy = 1;
+}
+
+uint8_t uart_string_complete(){
+	return uart_fetch_complete;
+}
+ 764:	1f 92       	push	r1
+ 766:	0f 92       	push	r0
+ 768:	0f b6       	in	r0, 0x3f	; 63
+ 76a:	0f 92       	push	r0
+ 76c:	11 24       	eor	r1, r1
+ 76e:	2f 93       	push	r18
+ 770:	3f 93       	push	r19
+ 772:	8f 93       	push	r24
+ 774:	9f 93       	push	r25
+ 776:	af 93       	push	r26
+ 778:	bf 93       	push	r27
+ 77a:	ef 93       	push	r30
+ 77c:	ff 93       	push	r31
+ 77e:	e5 ee       	ldi	r30, 0xE5	; 229
+ 780:	f1 e0       	ldi	r31, 0x01	; 1
+ 782:	80 81       	ld	r24, Z
+ 784:	91 81       	ldd	r25, Z+1	; 0x01
+ 786:	20 91 c6 00 	lds	r18, 0x00C6	; 0x8000c6 <__TEXT_REGION_LENGTH__+0x7f80c6>
+ 78a:	dc 01       	movw	r26, r24
+ 78c:	ad 59       	subi	r26, 0x9D	; 157
+ 78e:	be 4f       	sbci	r27, 0xFE	; 254
+ 790:	2c 93       	st	X, r18
+ 792:	01 96       	adiw	r24, 0x01	; 1
+ 794:	91 83       	std	Z+1, r25	; 0x01
+ 796:	80 83       	st	Z, r24
+ 798:	e3 ee       	ldi	r30, 0xE3	; 227
+ 79a:	f1 e0       	ldi	r31, 0x01	; 1
+ 79c:	20 81       	ld	r18, Z
+ 79e:	31 81       	ldd	r19, Z+1	; 0x01
+ 7a0:	2f 5f       	subi	r18, 0xFF	; 255
+ 7a2:	3f 4f       	sbci	r19, 0xFF	; 255
+ 7a4:	31 83       	std	Z+1, r19	; 0x01
+ 7a6:	20 83       	st	Z, r18
+ 7a8:	80 38       	cpi	r24, 0x80	; 128
+ 7aa:	91 05       	cpc	r25, r1
+ 7ac:	20 f0       	brcs	.+8      	; 0x7b6 <__vector_18+0x52>
+ 7ae:	10 92 e6 01 	sts	0x01E6, r1	; 0x8001e6 <uart_buffer+0x83>
+ 7b2:	10 92 e5 01 	sts	0x01E5, r1	; 0x8001e5 <uart_buffer+0x82>
+ 7b6:	ff 91       	pop	r31
+ 7b8:	ef 91       	pop	r30
+ 7ba:	bf 91       	pop	r27
+ 7bc:	af 91       	pop	r26
+ 7be:	9f 91       	pop	r25
+ 7c0:	8f 91       	pop	r24
+ 7c2:	3f 91       	pop	r19
+ 7c4:	2f 91       	pop	r18
+ 7c6:	0f 90       	pop	r0
+ 7c8:	0f be       	out	0x3f, r0	; 63
+ 7ca:	0f 90       	pop	r0
+ 7cc:	1f 90       	pop	r1
+ 7ce:	18 95       	reti
+
+000007d0 <__vector_20>:
+ 7d0:	1f 92       	push	r1
+ 7d2:	0f 92       	push	r0
+ 7d4:	0f b6       	in	r0, 0x3f	; 63
+ 7d6:	0f 92       	push	r0
+ 7d8:	11 24       	eor	r1, r1
+ 7da:	8f 93       	push	r24
+ 7dc:	81 e0       	ldi	r24, 0x01	; 1
+ 7de:	80 93 08 01 	sts	0x0108, r24	; 0x800108 <uart_tx_busy>
+ 7e2:	8f 91       	pop	r24
+ 7e4:	0f 90       	pop	r0
+ 7e6:	0f be       	out	0x3f, r0	; 63
+ 7e8:	0f 90       	pop	r0
+ 7ea:	1f 90       	pop	r1
+ 7ec:	18 95       	reti
+
+000007ee <uart_init>:
+
+void uart_init(uint32_t baud){
+	/*Set baud rate*/
+	baud = F_CPU/(16*baud) - 1;
+ 7ee:	dc 01       	movw	r26, r24
+ 7f0:	cb 01       	movw	r24, r22
+ 7f2:	88 0f       	add	r24, r24
+ 7f4:	99 1f       	adc	r25, r25
+ 7f6:	aa 1f       	adc	r26, r26
+ 7f8:	bb 1f       	adc	r27, r27
+ 7fa:	88 0f       	add	r24, r24
+ 7fc:	99 1f       	adc	r25, r25
+ 7fe:	aa 1f       	adc	r26, r26
+ 800:	bb 1f       	adc	r27, r27
+ 802:	9c 01       	movw	r18, r24
+ 804:	ad 01       	movw	r20, r26
+ 806:	22 0f       	add	r18, r18
+ 808:	33 1f       	adc	r19, r19
+ 80a:	44 1f       	adc	r20, r20
+ 80c:	55 1f       	adc	r21, r21
+ 80e:	22 0f       	add	r18, r18
+ 810:	33 1f       	adc	r19, r19
+ 812:	44 1f       	adc	r20, r20
+ 814:	55 1f       	adc	r21, r21
+ 816:	60 e0       	ldi	r22, 0x00	; 0
+ 818:	74 e2       	ldi	r23, 0x24	; 36
+ 81a:	84 ef       	ldi	r24, 0xF4	; 244
+ 81c:	90 e0       	ldi	r25, 0x00	; 0
+ 81e:	0e 94 54 04 	call	0x8a8	; 0x8a8 <__udivmodsi4>
+ 822:	ba 01       	movw	r22, r20
+ 824:	a9 01       	movw	r20, r18
+ 826:	41 50       	subi	r20, 0x01	; 1
+ 828:	51 09       	sbc	r21, r1
+ 82a:	61 09       	sbc	r22, r1
+ 82c:	71 09       	sbc	r23, r1
+	UBRR0H = (baud & 0x0F00) >> 8;	// mask out the upper 4 bits
+ 82e:	db 01       	movw	r26, r22
+ 830:	ca 01       	movw	r24, r20
+ 832:	88 27       	eor	r24, r24
+ 834:	9f 70       	andi	r25, 0x0F	; 15
+ 836:	aa 27       	eor	r26, r26
+ 838:	bb 27       	eor	r27, r27
+ 83a:	89 2f       	mov	r24, r25
+ 83c:	9a 2f       	mov	r25, r26
+ 83e:	ab 2f       	mov	r26, r27
+ 840:	bb 27       	eor	r27, r27
+ 842:	80 93 c5 00 	sts	0x00C5, r24	; 0x8000c5 <__TEXT_REGION_LENGTH__+0x7f80c5>
+	UBRR0L = (baud & 0x00FF);		// mask out the lower 8 bits
+ 846:	40 93 c4 00 	sts	0x00C4, r20	; 0x8000c4 <__TEXT_REGION_LENGTH__+0x7f80c4>
+	
+	/* Enable Rx and Tx as well as Rx and Rx complete interrupts*/
+	UCSR0B |= (1<< RXEN0) | (1<<TXEN0) | (1<< RXCIE0) | (1 << TXCIE0);
+ 84a:	e1 ec       	ldi	r30, 0xC1	; 193
+ 84c:	f0 e0       	ldi	r31, 0x00	; 0
+ 84e:	80 81       	ld	r24, Z
+ 850:	88 6d       	ori	r24, 0xD8	; 216
+ 852:	80 83       	st	Z, r24
+	
+	/* Initialize Objects */
+	uart_buffer = (UARTBuffer){ .buffer = {0}, .head = 0, .tail = 0};		
+ 854:	e3 e6       	ldi	r30, 0x63	; 99
+ 856:	f1 e0       	ldi	r31, 0x01	; 1
+ 858:	86 e8       	ldi	r24, 0x86	; 134
+ 85a:	df 01       	movw	r26, r30
+ 85c:	1d 92       	st	X+, r1
+ 85e:	8a 95       	dec	r24
+ 860:	e9 f7       	brne	.-6      	; 0x85c <__DATA_REGION_LENGTH__+0x5c>
+ 862:	08 95       	ret
+
+00000864 <uart_send_byte>:
+}
+
+
+void uart_send_byte(char data){
+	while(uart_tx_busy == 0); // while UART is not transmitting
+ 864:	90 91 08 01 	lds	r25, 0x0108	; 0x800108 <uart_tx_busy>
+ 868:	99 23       	and	r25, r25
+ 86a:	e1 f3       	breq	.-8      	; 0x864 <uart_send_byte>
+	
+	uart_tx_busy = 0; 
+ 86c:	10 92 08 01 	sts	0x0108, r1	; 0x800108 <uart_tx_busy>
+	UDR0 = data;				// load byte passed into the function to the uart buffer
+ 870:	80 93 c6 00 	sts	0x00C6, r24	; 0x8000c6 <__TEXT_REGION_LENGTH__+0x7f80c6>
+ 874:	08 95       	ret
+
+00000876 <uart_send_string>:
+}
+
+void uart_send_string(char *arr) {
+ 876:	0f 93       	push	r16
+ 878:	1f 93       	push	r17
+ 87a:	cf 93       	push	r28
+ 87c:	df 93       	push	r29
+ 87e:	8c 01       	movw	r16, r24
+	uint16_t i = 0; 
+ 880:	c0 e0       	ldi	r28, 0x00	; 0
+ 882:	d0 e0       	ldi	r29, 0x00	; 0
+	
+	do {
+		uart_send_byte(arr[i]);
+ 884:	f8 01       	movw	r30, r16
+ 886:	ec 0f       	add	r30, r28
+ 888:	fd 1f       	adc	r31, r29
+ 88a:	80 81       	ld	r24, Z
+ 88c:	0e 94 32 04 	call	0x864	; 0x864 <uart_send_byte>
+		i++;
+ 890:	21 96       	adiw	r28, 0x01	; 1
+	} while(arr[i] != '\0');
+ 892:	f8 01       	movw	r30, r16
+ 894:	ec 0f       	add	r30, r28
+ 896:	fd 1f       	adc	r31, r29
+ 898:	80 81       	ld	r24, Z
+ 89a:	81 11       	cpse	r24, r1
+ 89c:	f3 cf       	rjmp	.-26     	; 0x884 <uart_send_string+0xe>
+}
+ 89e:	df 91       	pop	r29
+ 8a0:	cf 91       	pop	r28
+ 8a2:	1f 91       	pop	r17
+ 8a4:	0f 91       	pop	r16
+ 8a6:	08 95       	ret
+
+000008a8 <__udivmodsi4>:
+ 8a8:	a1 e2       	ldi	r26, 0x21	; 33
+ 8aa:	1a 2e       	mov	r1, r26
+ 8ac:	aa 1b       	sub	r26, r26
+ 8ae:	bb 1b       	sub	r27, r27
+ 8b0:	fd 01       	movw	r30, r26
+ 8b2:	0d c0       	rjmp	.+26     	; 0x8ce <__udivmodsi4_ep>
+
+000008b4 <__udivmodsi4_loop>:
+ 8b4:	aa 1f       	adc	r26, r26
+ 8b6:	bb 1f       	adc	r27, r27
+ 8b8:	ee 1f       	adc	r30, r30
+ 8ba:	ff 1f       	adc	r31, r31
+ 8bc:	a2 17       	cp	r26, r18
+ 8be:	b3 07       	cpc	r27, r19
+ 8c0:	e4 07       	cpc	r30, r20
+ 8c2:	f5 07       	cpc	r31, r21
+ 8c4:	20 f0       	brcs	.+8      	; 0x8ce <__udivmodsi4_ep>
+ 8c6:	a2 1b       	sub	r26, r18
+ 8c8:	b3 0b       	sbc	r27, r19
+ 8ca:	e4 0b       	sbc	r30, r20
+ 8cc:	f5 0b       	sbc	r31, r21
+
+000008ce <__udivmodsi4_ep>:
+ 8ce:	66 1f       	adc	r22, r22
+ 8d0:	77 1f       	adc	r23, r23
+ 8d2:	88 1f       	adc	r24, r24
+ 8d4:	99 1f       	adc	r25, r25
+ 8d6:	1a 94       	dec	r1
+ 8d8:	69 f7       	brne	.-38     	; 0x8b4 <__udivmodsi4_loop>
+ 8da:	60 95       	com	r22
+ 8dc:	70 95       	com	r23
+ 8de:	80 95       	com	r24
+ 8e0:	90 95       	com	r25
+ 8e2:	9b 01       	movw	r18, r22
+ 8e4:	ac 01       	movw	r20, r24
+ 8e6:	bd 01       	movw	r22, r26
+ 8e8:	cf 01       	movw	r24, r30
+ 8ea:	08 95       	ret
+
+000008ec <memcmp>:
+ 8ec:	fb 01       	movw	r30, r22
+ 8ee:	dc 01       	movw	r26, r24
+ 8f0:	04 c0       	rjmp	.+8      	; 0x8fa <memcmp+0xe>
+ 8f2:	8d 91       	ld	r24, X+
+ 8f4:	01 90       	ld	r0, Z+
+ 8f6:	80 19       	sub	r24, r0
+ 8f8:	21 f4       	brne	.+8      	; 0x902 <__stack+0x3>
+ 8fa:	41 50       	subi	r20, 0x01	; 1
+ 8fc:	50 40       	sbci	r21, 0x00	; 0
+ 8fe:	c8 f7       	brcc	.-14     	; 0x8f2 <memcmp+0x6>
+ 900:	88 1b       	sub	r24, r24
+ 902:	99 0b       	sbc	r25, r25
+ 904:	08 95       	ret
+
+00000906 <_exit>:
+ 906:	f8 94       	cli
+
+00000908 <__stop_program>:
+ 908:	ff cf       	rjmp	.-2      	; 0x908 <__stop_program>
