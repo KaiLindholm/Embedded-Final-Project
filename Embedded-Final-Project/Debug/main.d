@@ -25,6 +25,8 @@ main.d main.o: .././main.c ../src/include/defines.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\string.h \
  ../src/include/config.h ../src/include/lcd.h ../src/include/mfrc522.h \
  ../src/include/mfrc522_cmd.h ../src/include/mfrc522_reg.h \
+ ../src/include/hd44780.h \
+ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdbool.h \
  ../src/include/utils.h ../src/include/spi.h ../src/include/spi_config.h \
  ../src/include/uart.h
 
@@ -87,6 +89,10 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\
 ../src/include/mfrc522_cmd.h:
 
 ../src/include/mfrc522_reg.h:
+
+../src/include/hd44780.h:
+
+c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdbool.h:
 
 ../src/include/utils.h:
 

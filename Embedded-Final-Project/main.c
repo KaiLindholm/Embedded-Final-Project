@@ -35,6 +35,7 @@
 
 #include "lcd.h"
 #include "mfrc522.h"
+#include "hd44780.h"
 #include <avr/io.h>
 #include <util/delay.h>
 #include <lcd.h>
@@ -66,29 +67,34 @@ typedef struct {
 void printByte(uint8_t number);
 void selfTest();
 void sense_card();
-void  read_card();
+uint8_t read_card();
 void build_uid(uint8_t* uid);
-uint8_t check_if_uid_in_memory(uint8_t * scannedUid);
+uint8_t check_if_uid_in_memory(uint8_t * scannedUid);\
+void dispenser()
 FILE lcd_str = FDEV_SETUP_STREAM(lcd_putchar, NULL, _FDEV_SETUP_WRITE);
 
 void init(){
 	/* initialize peripherals */
 	lcd_init();
+
 	spi_init();
+		
 	mfrc522_init();
+
 	pwm_init();
-	
+
 	/* Set up pins the PWM Servo Motor */
 	DDRB &= 0xFE;
 	DDRB &= 0xFE;
 	PORTC = (1 << PORTC0);
 	PORTB = (1 << PORTB0);
-	uart_init(19200);
-	_delay_ms(500);
-	
+
 	// load stored UIDs from memory. 
 	memcpy(Uids[0], cardTag, sizeof(cardTag));
 	memcpy(Uids[1], keyTag, sizeof(keyTag));
+	sei();
+	
+	servo_set(150,180);
 }
 void printByte(uint8_t byte) {
 	char hex[3];
@@ -155,60 +161,73 @@ void sense_card(){
 		_delay_ms(1000);
 	}
 }
+
 int main (void) {
 	init();
-	sei();
-
-	read_card();
-	servo_set(150,180);
+	dispenser();
+}
+ 
+void dispenser(){
 	int16_t count = 0;
 	int16_t delay = 0;
 	if(count == 0){
-		fprintf(&lcd_str, "Please scan your card.");
-		count++;
-		_delay_ms(1000);
-	}
-	if((PINC & (1 << PINC0))== 0){
-		if(count == 1){
-			delay = 1600;
-			_delay_ms(1000);
-			fprintf(&lcd_str, "\n");
-			fprintf(&lcd_str, "Selection: Dispense 1 gram of Creatine.");
-			}else if(count == 2){
-				fprintf(&lcd_str, "\n");
+		fprintf(&lcd_str, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaBaaaaaaaaaaaaaaaaaaaaaaaaa");
 
-				fprintf(&lcd_str, "Selection: Dispense 5 gram of Creatine.");
-				delay = 8000;
-				_delay_ms(1000);
-			}else if(count == 3){
-				fprintf(&lcd_str, "\n");
-				fprintf(&lcd_str, "Selection: Dispense 10 gram of Creatine.");
-				delay = 16000;
-				_delay_ms(1000);
-				count = 0;
-		}
-		
 		count++;
 	}
 	
-	if( (PINB & (1 << PINB0)) == 0 ) {
-		if((count != 0) && (delay != 0)){
-			_delay_ms(1000);
-			servo_set(105,150);
-			if(delay == 1600) {
-				_delay_ms(DELAY1);
-			} else if(delay == 8000){
-				_delay_ms(DELAY2);
-			} else if(delay == 16000){
-				_delay_ms(DELAY3);
+	while(!read_card());
+	
+	_delay_ms(100);
+	fprintf(&lcd_str, "your card.");
+	fprintf(&lcd_str, "\n");
+	fprintf(&lcd_str, "Use the top button.");
+	
+	while (1) {
+		if((PINC & (1 << PINC0))== 0){
+			if(count == 1){
+				delay = 1600;
+				_delay_ms(1000);
+				fprintf(&lcd_str, "\n");
+				fprintf(&lcd_str, "Creatine: 1g");
+				} else if(count == 2){
+				fprintf(&lcd_str, "\n");
+				fprintf(&lcd_str, "Creatine: 5g");
+				delay = 8000;
+				_delay_ms(1000);
+				}else if(count == 3){
+				fprintf(&lcd_str, "\n");
+				fprintf(&lcd_str, "Creatine: 10g");
+				delay = 16000;
+				_delay_ms(1000);
+				count = 0;
 			}
 			
-			servo_set(150,180);
+			count++;
+			
+		}
+		
+	
+		if( (PINB & (1 << PINB0)) == 0 ) {
+			if((count != 0) && (delay != 0)){
+				_delay_ms(1000);
+				servo_set(105,150);
+				if(delay == 1600) {
+					_delay_ms(DELAY1);
+					} else if(delay == 8000){
+					_delay_ms(DELAY2);
+					} else if(delay == 16000){
+					_delay_ms(DELAY3);
+				}
+				
+				servo_set(150,180);
+				dispenser();
+			}
 		}
 	}
 }
 
-void read_card(){
+uint8_t read_card(){
 	uint8_t byte; 
 	uint8_t str[MAX_LEN];
 	
@@ -223,12 +242,12 @@ void read_card(){
 			byte = mfrc522_get_card_serial(str);
 			if(byte == CARD_FOUND) {
 				if(check_if_uid_in_memory(str)){
-					uart_send_string("Access Granted");
+					return 1; 
 				} else {
-					uart_send_string("Access Denied");
+					return 0; 
 				}
 			} else {
-				uart_send_string("error");
+				return 0; 
 			}
 		}
 		
